@@ -13,14 +13,17 @@ namespace Tower_Defense
     {
         // Variabler/fields
         protected Vector2 position;
-        protected float speed = 0f;
-        protected int value = 0;
+        protected float speed;
+        protected int value;
         protected Texture2D sprite;
         private int health;
 
         public Enemy(float speed, int value, Texture2D sprite, int health)
         {
-
+            this.speed = speed;
+            this.value = value;
+            this.sprite = sprite;
+            this.health = Health;
         }
 
 
