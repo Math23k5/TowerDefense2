@@ -16,7 +16,7 @@ namespace Tower_Defense
         public Rectangle rec;
         public Vector2 movement;
         public Vector2 velocity;
-        public bool isActive;
+        
 
         public void Init(Texture2D text, Vector2 pos, Vector2 move)
         {
@@ -67,7 +67,7 @@ namespace Tower_Defense
 
         public override void Move(GameTime gameTime)
         {
-            velocity = position - target.position;
+            velocity = position - target.Position;
             velocity.Normalize();
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
