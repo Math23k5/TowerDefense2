@@ -12,7 +12,7 @@ namespace Tower_Defense
     abstract class Enemy
     {
         // Variabler/fields
-        protected Vector2 position;
+        private Vector2 position;
         protected float speed;
         protected int value;
         protected Texture2D sprite;
@@ -23,11 +23,12 @@ namespace Tower_Defense
             this.speed = speed;
             this.value = value;
             this.sprite = sprite;
-            this.health = Health;
+            this.health = health;
         }
 
 
         public int Health { get => health; set => health = value; }
+        public Vector2 Position { get => position; set => position = value; }
 
 
         // Metode til at instantiere content
