@@ -13,8 +13,13 @@ namespace Tower_Defense
         public int speed = 10;
         protected Enemy target;
         protected Vector2 position;
+        protected bool isActive;
 
-        public Projectile(Texture2D tex, Point position) { }
+        public Projectile(Enemy target, Vector2 position) 
+        {
+            this.target = target;
+            this.position = position;
+        }
 
         public abstract void Move(GameTime gameTime);
 
