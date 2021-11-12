@@ -11,8 +11,8 @@ namespace Tower_Defense
         private SpriteBatch _spriteBatch;
 
         private List<Tower> myTowers = new List<Tower>();
-        private List<Enemy> myEnemies = new List<Enemy>();
-
+        public List<Enemy> myEnemies = new List<Enemy>();
+        
 
         private int[,] enemyMovePattern = new int[,] { { 2, 0 }, { 2, 3 }, { 4, 3 } };
         private int[,] enemyWaves = new int[,] { { 20, 0, 0 }, { 10, 5, 2 } };
@@ -21,9 +21,14 @@ namespace Tower_Defense
         private int currentTypeSpawn = 0;
 
         public static int gold = 0;
+
         private float timeToWave = 30.0f;
         private float timeBetweenEnemies = 1.0f;
-
+        
+        private bool[,] placeAble;
+        private Texture2D map;
+        private int mapWidth;
+        private int mapHeight;
 
         public GameWorld()
         {
@@ -42,7 +47,26 @@ namespace Tower_Defense
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            //Bitmap img = new Bitmap("map1.png");
 
+            //map = Content.Load<Texture2D>("map1");
+            readLevel("map1", GraphicsDevice);
+            //placeAble = new bool[map.Height, map.Width];
+            //mapHeight = map.Height;
+            //mapWidth = map.Width;
+
+            //for (int i = 0; i < map.Width; i++)
+            //{
+            //    for (int j = 0; j < map.Height; j++)
+            //    {
+            //        Color pixel = map.GetData(i,j);
+
+            //        if (pixel == (0,0,0))
+            //        {
+            //            placeAble[j,i] = true;
+            //        }
+            //    }
+            //} 
 
             // TODO: use this.Content to load your game content here
         }
@@ -92,10 +116,53 @@ namespace Tower_Defense
                 myEnemy.Draw(_spriteBatch);
             }
 
+            for (int i = 0; i < mapHeight; i++)
+            {
+                for (int j = 0; j < mapWidth; j++)
+                {
+
+                }
+            } 
 
             _spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+
+        public void readLevel(string path, GraphicsDevice graphics)
+        {
+            //GET AN ARRAY OF COLORS
+            Texture2D level = Content.Load<Texture2D>(path);
+            Color[] colors = new Color[level.Width * level.Height];
+            level.GetData(colors);
+
+            //READ EACH PIXEL AND DRAW LEVEL
+            Color brickRGB = new Color(0, 0, 0);
+
+            int placeX = 0;
+            int placeY = 0;
+
+            foreach (Color pixel in colors)
+            {
+                SpriteBatch spriteBatch = new SpriteBatch(graphics);
+                spriteBatch.Begin();
+
+                if (pixel == brickRGB)
+                {
+                    Texture2D brick = Content.Load<Texture2D>("square");
+                    spriteBatch.Draw(brick, new Rectangle(placeX, placeY, 40, 40), Color.White);
+                }
+
+
+                if (placeX == 22)
+                {
+                    placeX = 0;
+                    placeY++;
+                }
+                else
+                    spriteBatch.End();
+            }
         }
 
         public void SpawnEnemyWave(GameTime gameTime)
