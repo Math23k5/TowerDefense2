@@ -17,6 +17,9 @@ namespace Tower_Defense
         protected int value;
         protected Texture2D sprite;
         private int health;
+        public bool isSlowed = false;
+
+
 
         public Enemy(float speed, int value, Texture2D sprite, int health)
         {
@@ -24,12 +27,18 @@ namespace Tower_Defense
             this.value = value;
             this.sprite = sprite;
             this.health = health;
+
         }
 
 
         public int Health { get => health; set => health = value; }
         public Vector2 Position { get => position; set => position = value; }
 
+
+        public void Move(float speed, Vector2 position)
+        {
+            
+        }
 
         // Metode til at instantiere content
         public abstract void LoadContent(ContentManager content);
