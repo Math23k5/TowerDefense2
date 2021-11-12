@@ -11,11 +11,14 @@ namespace Tower_Defense
     public abstract class Projectile
     {
         public int speed = 10;
+        protected Enemy target;
+        protected Vector2 position;
 
-        public Projectile(Texture2D tex, Point position) : base(tex, position) { }
+        public Projectile(Texture2D tex, Point position) { }
 
-        public abstract bool Move();
+        public abstract void Move(GameTime gameTime);
 
+            
         public abstract void Damage();
 
         public abstract void OnHit(Enemy other);
