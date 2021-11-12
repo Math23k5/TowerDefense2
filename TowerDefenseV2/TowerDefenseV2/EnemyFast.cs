@@ -34,8 +34,8 @@ namespace Tower_Defense
 
         public void Death()
         {
-            int goldValue = fastValue;
-            GameWorld.Gold();
+            GameWorld.gold += fastValue;
+            
 
         }
 

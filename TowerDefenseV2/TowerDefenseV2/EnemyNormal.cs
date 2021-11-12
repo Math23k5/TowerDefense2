@@ -34,8 +34,7 @@ namespace Tower_Defense
 
         public void Death()
         {
-            int goldValue = normalValue = 10;
-            GameWorld.Gold();
+            GameWorld.gold += normalValue;
         }
 
         public override void LoadContent(ContentManager content)
