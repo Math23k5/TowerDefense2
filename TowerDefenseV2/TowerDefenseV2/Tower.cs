@@ -14,7 +14,9 @@ namespace Tower_Defense
         protected int cost;
         protected float rateOfFire;
 
-        protected Texture2D sprite;
+        protected Texture2D towSprite;
+        protected Texture2D bulSprite;
+
         protected float distance;
         protected Vector2 position;
         public bool isShooting = false;
