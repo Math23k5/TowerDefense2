@@ -12,6 +12,7 @@ namespace Tower_Defense
     {
         // Variabler hentes fra Enemy superklassen
         private int normalHealth = 100;
+        
 
         /* Enemy skal spawnes ved wave start og skal bevæge sig til givne positioner.
          * Enemy skal tage skade når den rammes af de forskellige skud fra tårnene.
@@ -20,6 +21,10 @@ namespace Tower_Defense
          * Normal enemy er baseline for alle andre typer af enemies.
         */
 
+        public EnemyNormal(float speed, int value, Texture2D sprite, int health) : base(speed, value, sprite, health)
+        {
+
+        }
 
 
         public int Death(int normalValue)

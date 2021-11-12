@@ -12,6 +12,8 @@ namespace Tower_Defense
     {
         // Variabler hentes fra Enemy superklassen
         private int fastHealth = 75;
+        private float fastSpeed = 15;
+        private int fastValue = 7;
 
 
         /* Enemy skal spawnes ved wave start og skal bevæge sig til givne positioner.
@@ -20,12 +22,17 @@ namespace Tower_Defense
          * Når enemy dør skal den sende dens værdi tilbage og tilføjes til spillerens guld
          * Fast enemy skal være hurtigere, men svagere end normal enemy
         */
-
-
-
-        public void Death()
+        public EnemyFast(float speed, int value, Texture2D sprite, int health) : base (speed, value, sprite, health)
         {
-            int fastValue = 8;
+            speed = fastSpeed;
+            health = fastHealth;
+
+        }
+
+
+        public void Death(int value)
+        {
+            int value = fastValue;
             GameWorld.Gold();
 
         }
@@ -33,7 +40,8 @@ namespace Tower_Defense
         public override void LoadContent(ContentManager content)
         {
             content.Load<Texture2D>("enemyFast");
-            Health = 75;
+            Health = fastHealth;
+            speed = fastSpeed; 
         }
 
         public override void Update(GameTime gameTime)

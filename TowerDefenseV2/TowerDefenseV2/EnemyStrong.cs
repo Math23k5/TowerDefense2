@@ -12,7 +12,7 @@ namespace Tower_Defense
     {
         // Variabler hentes fra Enemy superklassen
         private int strongHealth = 150;
-
+        private int strongSpeed = 5;
 
         /* Enemy skal spawnes ved wave start og skal bevæge sig til givne positioner.
          * Enemy skal tage skade når den rammes af de forskellige skud fra tårnene.
@@ -21,7 +21,10 @@ namespace Tower_Defense
          * Strong enemy er langsommere end normal enemies, men har mere helbred.
         */
 
-
+        public EnemyStrong(float speed, int value, Texture2D sprite, int health) : base(speed, value, sprite, health)
+        {
+            
+        }
 
         public int Death(int strongValue)
         {
