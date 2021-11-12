@@ -14,7 +14,8 @@ namespace Tower_Defense
         private int fastHealth = 75;
         private float fastSpeed = 15;
         private int fastValue = 7;
-
+        private Texture2D fastSprite;
+        private Rectangle fastRectangle;
 
         /* Enemy skal spawnes ved wave start og skal bevæge sig til givne positioner.
          * Enemy skal tage skade når den rammes af de forskellige skud fra tårnene.
@@ -26,13 +27,14 @@ namespace Tower_Defense
         {
             speed = fastSpeed;
             health = fastHealth;
+            value = fastValue;
 
         }
 
 
-        public void Death(int value)
+        public void Death()
         {
-            int value = fastValue;
+            int goldValue = fastValue;
             GameWorld.Gold();
 
         }
@@ -40,8 +42,7 @@ namespace Tower_Defense
         public override void LoadContent(ContentManager content)
         {
             content.Load<Texture2D>("enemyFast");
-            Health = fastHealth;
-            speed = fastSpeed; 
+            fastRectangle = new Rectangle(0, 0, fastSprite.Width, fastSprite.Height);
         }
 
         public override void Update(GameTime gameTime)
@@ -52,7 +53,9 @@ namespace Tower_Defense
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-
+            spriteBatch.Begin();
+            spriteBatch.Draw(fastSprite, fastRectangle, Color.White);
+            spriteBatch.End();
         }
 
         public void TakeDamage(int damage)
