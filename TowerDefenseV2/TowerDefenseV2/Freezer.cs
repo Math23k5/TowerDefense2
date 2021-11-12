@@ -6,6 +6,11 @@ namespace Tower_Defense
 {
     public class Freezer : Tower
     {
+        protected int frzDamage;
+        protected float frzRange;
+        protected int frzCost;
+        protected float frzRateOfFire;
+        
         public Freezer()
         {
         }
@@ -24,7 +29,7 @@ namespace Tower_Defense
 
         public override void LoadContent(ContentManager content)
         {
-
+            towSprite = content.Load<Texture2D>("FreezerTower");
         }
 
 
