@@ -48,6 +48,12 @@ namespace Tower_Defense
         public override void Update(GameTime gameTime)
         {
             // Make the unit move on the specified path (enum?)
+            if(isSlowed == true)
+            {
+                Move(fastSpeed * 0.9f, Position);
+            }
+
+            //pos til mål
 
         }
 
