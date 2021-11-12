@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Tower_Defense
 {
-    abstract class Enemy
+    public abstract class Enemy
     {
         // Variabler/fields
         private Vector2 position;
