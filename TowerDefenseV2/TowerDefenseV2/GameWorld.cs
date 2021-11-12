@@ -12,7 +12,10 @@ namespace Tower_Defense
 
         private List<Tower> myTowers = new List<Tower>();
         private List<Enemy> myEnemies = new List<Enemy>();
-
+        public static List<Enemy> MyEnemies
+        {
+            get { return myEnemies; }
+        }
 
         private int[,] enemyMovePattern = new int[,] { { 2, 0 }, { 2, 3 }, { 4, 3 } };
         private int[,] enemyWaves = new int[,] { { 20, 0, 0 }, { 10, 5, 2 } };
@@ -21,9 +24,14 @@ namespace Tower_Defense
         private int currentTypeSpawn = 0;
 
         public static int gold = 0;
+
         private float timeToWave = 30.0f;
         private float timeBetweenEnemies = 1.0f;
-
+        
+        private Bitmap img = new Bitmap("map1.png");
+        private bool[,] placeAble;
+        private int mapWidth;
+        private int mapHeight;
 
         public GameWorld()
         {
@@ -42,7 +50,23 @@ namespace Tower_Defense
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            Bitmap img = new Bitmap("map1.png");
+            placeAble = new bool[img.Height, img.Width];
+            mapHeight = img.Height;
+            mapWidth = img.Width;
 
+            for (int i = 0; i < img.Width; i++)
+            {
+                for (int j = 0; j < img.Height; j++)
+                {
+                    Color pixel = img.GetPixel(i,j);
+
+                    if (pixel == (0,0,0))
+                    {
+                        placeAble[j,i] = true;
+                    }
+                }
+            } 
 
             // TODO: use this.Content to load your game content here
         }
@@ -92,6 +116,18 @@ namespace Tower_Defense
                 myEnemy.Draw(_spriteBatch);
             }
 
+            for (int i = 0; i < placeAble[]; i++)
+            {
+                for (int j = 0; j < img.Height; j++)
+                {
+                    Color pixel = img.GetPixel(i,j);
+
+                    if (pixel == (0,0,0))
+                    {
+                        placeAble[j,i] = true;
+                    }
+                }
+            } 
 
             _spriteBatch.End();
 
