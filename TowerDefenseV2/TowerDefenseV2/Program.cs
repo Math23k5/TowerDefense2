@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TowerDefenseV2
+namespace Tower_Defense
 {
     public static class Program
     {

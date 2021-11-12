@@ -12,6 +12,10 @@ namespace Tower_Defense
     {
         // Variabler hentes fra Enemy superklassen
         private int strongHealth = 150;
+        private float strongSpeed = 5;
+        private int strongValue = 15;
+        private Texture2D strongSprite;
+        private Rectangle strongRectangle;
 
 
         /* Enemy skal spawnes ved wave start og skal bevæge sig til givne positioner.
@@ -21,12 +25,17 @@ namespace Tower_Defense
          * Strong enemy er langsommere end normal enemies, men har mere helbred.
         */
 
-
-
-        public int Death(int strongValue)
+        public EnemyStrong(float speed, int value, Texture2D sprite, int health) : base(speed, value, sprite, health)
         {
-            strongValue = 15;
-            return strongValue;
+            speed = strongSpeed;
+            health = strongHealth;
+            value = strongValue;
+
+        }
+
+        public void Death()
+        {
+            GameWorld.gold += strongValue;
         }
 
         public override void LoadContent(ContentManager content)
@@ -43,7 +52,9 @@ namespace Tower_Defense
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-
+            spriteBatch.Begin();
+            spriteBatch.Draw(strongSprite, strongRectangle, Color.White);
+            spriteBatch.End();
         }
 
         //public void OnCollision(Enemy other)
