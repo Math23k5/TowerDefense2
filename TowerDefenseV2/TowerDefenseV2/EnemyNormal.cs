@@ -11,11 +11,11 @@ namespace Tower_Defense
     class EnemyNormal : Enemy
     {
         // Variabler hentes fra Enemy superklassen
-        private int normalHealth = 100;
-        private float normalSpeed = 10;
-        private int normalValue = 10;
-        private Texture2D normalSprite;
-        private Rectangle normalRectangle;
+        private int health = 100;
+        private float speed = 10;
+        private int value = 10;
+        private Texture2D sprite;
+        private Rectangle rectangle;
 
         /* Enemy skal spawnes ved wave start og skal bevæge sig til givne positioner.
          * Enemy skal tage skade når den rammes af de forskellige skud fra tårnene.
@@ -24,35 +24,37 @@ namespace Tower_Defense
          * Normal enemy er baseline for alle andre typer af enemies.
         */
 
-        public EnemyNormal(float speed, int value, Texture2D sprite, int health) : base(speed, value, sprite, health)
+        public EnemyNormal(int[,] enemyMovePattern)
         {
-            value = normalValue;
-            speed = normalSpeed;
-            health = normalHealth;
+            
         }
 
 
         public void Death()
         {
-            GameWorld.gold += normalValue;
+            GameWorld.gold += value;
         }
 
         public override void LoadContent(ContentManager content)
         {
-            content.Load<Texture2D>("enemyNormal");
-            Health = normalHealth;
+            sprite = content.Load<Texture2D>("enemyNormal");
+            Health = health;
         }
 
         public override void Update(GameTime gameTime)
         {
-            // Make the unit move on the specified path (enum?)
-
+           // Make the unit move on the specified path (enum?)
+           if (isSlowed == true)
+           {
+              Move(speed * 0.9f, Position);
+           }
+             //pos til mål
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            spriteBatch.Draw(normalSprite, normalRectangle, Color.White);
+            spriteBatch.Draw(sprite, rectangle, Color.White);
             spriteBatch.End();
         }
 

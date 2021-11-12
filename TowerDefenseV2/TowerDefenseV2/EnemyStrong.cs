@@ -11,11 +11,11 @@ namespace Tower_Defense
     class EnemyStrong : Enemy
     {
         // Variabler hentes fra Enemy superklassen
-        private int strongHealth = 150;
-        private float strongSpeed = 5;
-        private int strongValue = 15;
-        private Texture2D strongSprite;
-        private Rectangle strongRectangle;
+        private int health = 150;
+        private float speed = 5;
+        private int value = 15;
+        private Texture2D sprite;
+        private Rectangle rectangle;
 
 
         /* Enemy skal spawnes ved wave start og skal bevæge sig til givne positioner.
@@ -25,35 +25,36 @@ namespace Tower_Defense
          * Strong enemy er langsommere end normal enemies, men har mere helbred.
         */
 
-        public EnemyStrong(float speed, int value, Texture2D sprite, int health) : base(speed, value, sprite, health)
+        public EnemyStrong(int[,] enemyMovePattern)
         {
-            speed = strongSpeed;
-            health = strongHealth;
-            value = strongValue;
-
+           
         }
 
         public void Death()
         {
-            GameWorld.gold += strongValue;
+            GameWorld.gold += value;
         }
 
         public override void LoadContent(ContentManager content)
         {
-            content.Load<Texture2D>("enemyStrong");
-            Health = strongHealth;
+            sprite = content.Load<Texture2D>("enemyStrong");
+            Health = health;
         }
 
         public override void Update(GameTime gameTime)
         {
             // Make the unit move on the specified path (enum?)
-
+            if (isSlowed == true)
+            {
+                Move(speed * 0.9f, Position);
+            }
+            //pos til mål
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            spriteBatch.Draw(strongSprite, strongRectangle, Color.White);
+            spriteBatch.Draw(sprite, rectangle, Color.White);
             spriteBatch.End();
         }
 

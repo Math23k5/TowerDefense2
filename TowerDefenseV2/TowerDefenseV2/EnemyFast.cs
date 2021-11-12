@@ -11,11 +11,11 @@ namespace Tower_Defense
     class EnemyFast : Enemy
     {
         // Variabler hentes fra Enemy superklassen
-        private int fastHealth = 75;
-        private float fastSpeed = 15;
-        private int fastValue = 7;
-        private Texture2D fastSprite;
-        private Rectangle fastRectangle;
+        private int health = 75;
+        private float speed = 15;
+        private int value = 7;
+        private Texture2D sprite;
+        private Rectangle rectangle;
 
         /* Enemy skal spawnes ved wave start og skal bevæge sig til givne positioner.
          * Enemy skal tage skade når den rammes af de forskellige skud fra tårnene.
@@ -23,26 +23,21 @@ namespace Tower_Defense
          * Når enemy dør skal den sende dens værdi tilbage og tilføjes til spillerens guld
          * Fast enemy skal være hurtigere, men svagere end normal enemy
         */
-        public EnemyFast(float speed, int value, Texture2D sprite, int health) : base (speed, value, sprite, health)
+        public EnemyFast(int[,] enemyMovePattern)
         {
-            speed = fastSpeed;
-            health = fastHealth;
-            value = fastValue;
-
+            
         }
 
 
         public void Death()
         {
-            GameWorld.gold += fastValue;
-            
-
+            GameWorld.gold += value;
         }
 
         public override void LoadContent(ContentManager content)
         {
-            content.Load<Texture2D>("enemyFast");
-            fastRectangle = new Rectangle(0, 0, fastSprite.Width, fastSprite.Height);
+            sprite = content.Load<Texture2D>("enemyFast");
+            rectangle = new Rectangle(0, 0, sprite.Width, sprite.Height);
         }
 
         public override void Update(GameTime gameTime)
@@ -50,7 +45,7 @@ namespace Tower_Defense
             // Make the unit move on the specified path (enum?)
             if(isSlowed == true)
             {
-                Move(fastSpeed * 0.9f, Position);
+                Move(speed * 0.9f, Position);
             }
 
             //pos til mål
@@ -60,7 +55,7 @@ namespace Tower_Defense
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            spriteBatch.Draw(fastSprite, fastRectangle, Color.White);
+            spriteBatch.Draw(sprite, rectangle, Color.White);
             spriteBatch.End();
         }
 

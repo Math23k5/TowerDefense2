@@ -21,12 +21,8 @@ namespace Tower_Defense
 
 
 
-        public Enemy(float speed, int value, Texture2D sprite, int health)
+        public Enemy()
         {
-            this.speed = speed;
-            this.value = value;
-            this.sprite = sprite;
-            this.health = health;
 
         }
 
