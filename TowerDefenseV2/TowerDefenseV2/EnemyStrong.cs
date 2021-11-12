@@ -35,8 +35,7 @@ namespace Tower_Defense
 
         public void Death()
         {
-            int goldValue = strongValue;
-            GameWorld.Gold();
+            GameWorld.gold += strongValue;
         }
 
         public override void LoadContent(ContentManager content)
