@@ -19,22 +19,27 @@ namespace Tower_Defense
         private int health;
         public bool isSlowed = false;
 
-
-
         public Enemy()
         {
 
         }
 
-
         public int Health { get => health; set => health = value; }
         public Vector2 Position { get => position; set => position = value; }
 
-
         public void Move(float speed, Vector2 position)
         {
-            
+            // Lav emp static?
+            for (int path = 0; path < enemyMovePattern.GetLength(0); path++)
+            {
+                if ((position.X == enemyMovePattern[path, 0]) && (position.Y == enemyMovePattern[path, 1]))
+                {
+                    velocity += new Vector2(enemyMovePattern[path + 1, 0] - position.X, enemyMovePattern[path + 1, 1] - position.Y);
+                }
+            }
         }
+    
+
 
         // Metode til at instantiere content
         public abstract void LoadContent(ContentManager content);
