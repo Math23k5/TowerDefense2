@@ -15,7 +15,7 @@ namespace Tower_Defense
         private float speed = 10;
         private int value = 10;
         private Texture2D sprite;
-        private Rectangle rectangle;
+        private Rectangle collisionBox;
 
         /* Enemy skal spawnes ved wave start og skal bevæge sig til givne positioner.
          * Enemy skal tage skade når den rammes af de forskellige skud fra tårnene.
@@ -29,33 +29,13 @@ namespace Tower_Defense
             
         }
 
-
-        public void Death()
-        {
-            GameWorld.gold += value;
-        }
-
         public override void LoadContent(ContentManager content)
         {
             sprite = content.Load<Texture2D>("enemyNormal");
-            Health = health;
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-           // Make the unit move on the specified path (enum?)
-           if (isSlowed == true)
-           {
-              Move(speed * 0.9f, Position);
-           }
-             //pos til mål
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Begin();
-            spriteBatch.Draw(sprite, rectangle, Color.White);
-            spriteBatch.End();
+            CollisionBox = new Rectangle(0, 0, sprite.Width, sprite.Height);
+            base.Health = this.health;
+            base.Value = this.value;
+            base.NormalSpeed = this.speed;
         }
 
         //public void OnCollision(Enemy other)
