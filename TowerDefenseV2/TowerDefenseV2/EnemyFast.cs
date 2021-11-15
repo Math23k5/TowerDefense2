@@ -34,6 +34,7 @@ namespace Tower_Defense
 
         public override void LoadContent(ContentManager content)
         {
+            // SCALE SPRITE Png i korrekt størrelse
             sprite = content.Load<Texture2D>("enemyFast");
             CollisionBox = new Rectangle(0, 0, sprite.Width, sprite.Height);
             base.Health = this.health;
