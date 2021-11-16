@@ -15,8 +15,9 @@ namespace Tower_Defense
         List<Enemy> enemylist;
         Vector2 direction;
         Action<int, Point> damageFunc;
+        public Vector2 velocity;
 
-        public Bomb(Point position, Texture2D tex, Point dest, List<Enemy> enemylist, int damage, int areaofeffect, Action<int, Point> damageFunc) : base(tex, position)
+        public Bomb(Point position, Texture2D tex, Point dest, List<Enemy> enemylist, int damage, int areaofeffect, Action<int, Point> damageFunc)
         {
             this.dest = dest;
             this.Tex = tex;
@@ -32,19 +33,16 @@ namespace Tower_Defense
             }
         }
 
-        public override bool Move()
+        public override void Move(GameTime gameTime)
         {
-            Position -= (direction * speed).ToPoint();
+            velocity = position - target.Position;
+            velocity.Normalize();
 
-            if (Vector2.Distance(Position.ToVector2(), dest.ToVector2()) < 15)
-            {
-                Damage();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            position += ((speed * velocity) * deltaTime);
+
+
         }
 
         public override void Damage()
@@ -82,5 +80,7 @@ namespace Tower_Defense
 
             //Lav Animate metode til at animere bombe
         }
+
+        
     }
 }

@@ -10,6 +10,9 @@ namespace Tower_Defense
 {
     public abstract class Projectile
     {
+
+        //Variabaler/fields
+
         public int speed = 10;
         protected Enemy target;
         protected Vector2 position;
@@ -20,10 +23,17 @@ namespace Tower_Defense
             this.target = target;
             this.position = position;
         }
+        /// <summary>
+        /// Skal kontrollerer bevægelsen af projektilet
+        /// </summary>
+        /// <param name="gameTime"></param>
 
         public abstract void Move(GameTime gameTime);
 
-            
+         
+        /// <summary>
+        /// Skal kontrollere damage foretaget af projektilet på Enemy
+        /// </summary>
         public abstract void Damage();
 
         public abstract void OnHit(Enemy other);
