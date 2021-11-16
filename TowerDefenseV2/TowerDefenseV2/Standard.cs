@@ -9,7 +9,7 @@ namespace Tower_Defense
         
         protected Texture2D sprite;
 
-        public Standard()
+        public Standard(Vector2 position) : base(position)
         {
         }
 
