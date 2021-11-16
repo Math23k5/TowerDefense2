@@ -16,22 +16,23 @@ namespace Tower_Defense
         public Rectangle rec;
         public Vector2 movement;
         public Vector2 velocity;
-        
+        public int damage;
 
+
+
+        public Bullet(Texture2D texture, Vector2 position, int damage)
+        {
+            this.texture = texture;
+            this.position = position;
+            this.damage = damage;
+            
+        }
         public void Init(Texture2D text, Vector2 pos, Vector2 move)
         {
             texture = text;
             position = pos;
             movement = move;
-        }
-        public override void OnHit(Enemy other)
-        {
-
-        }
-        public Bullet(Texture2D texture, Point position)
-        {
-            
-        }
+        } 
 
         
         public override void LoadContent(ContentManager content)
@@ -44,7 +45,7 @@ namespace Tower_Defense
         public override void Update(GameTime gameTime)
         {
 
-
+           
 
 
         }
@@ -78,9 +79,17 @@ namespace Tower_Defense
 
         }
 
+        public override void OnCollision(Enemy other)
+        {
+            if (other is Enemy)
+            {
+                other.Health -= damage;
+            }
+        }
+
         public override void Damage()
         {
-
+            
         }
 
     }
