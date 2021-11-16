@@ -14,7 +14,7 @@ namespace Tower_Defense
         {
             foreach (Enemy myEnemy in GameWorld.myEnemies)
             {
-                distance = Math.Sqrt((Math.Pow(position.X - myEnemy.position.X, 2) + Math.Pow(position.Y - myEnemy.position.Y, 2)));
+                distance = Math.Sqrt((Math.Pow(position.X - myEnemy.position.X, 2) + Math.Pow(position.Y - myEnemy.Position.Y, 2)));
                 if(distance <= range)
                 {
                     myEnemy.Health -= damage;

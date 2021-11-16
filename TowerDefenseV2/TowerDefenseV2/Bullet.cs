@@ -23,22 +23,18 @@ namespace Tower_Defense
         public Vector2 movement;
         public Vector2 velocity;
         public int damage;
+        
+
+        
 
 
-
-        public Bullet(Texture2D texture, Vector2 position, int damage)
+        public Bullet(Vector2 position, int damage)
         {
-            this.texture = texture;
+            
             this.position = position;
             this.damage = damage;
             
         }
-        public void Init(Texture2D text, Vector2 pos, Vector2 move)
-        {
-            texture = text;
-            position = pos;
-            movement = move;
-        } 
 
         
         public override void LoadContent(ContentManager content)

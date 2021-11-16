@@ -18,20 +18,21 @@ namespace Tower_Defense
         Vector2 destination;
         int damage;
         int areaofeffect;
-        List<Enemy> enemylist;
         Vector2 direction;
         Action<int, Vector2> damageFunc;
         public Vector2 velocity;
         private Vector2 Position;
 
-        public Bomb(Vector2 position, Texture2D tex, Vector2 dest, List<Enemy> enemylist, int damage, int areaofeffect, Action<int, Point> damageFunc)
+        public Bomb(Vector2 position, Texture2D tex, Vector2 dest, List<Enemy> myEnemies, int damage, int areaofeffect, Action<int, Point> damageFunc)
         {
             this.destination = dest;
             this.Tex = tex;
             this.damage = damage;
             this.areaofeffect = areaofeffect;
-            this.enemylist = enemylist;
+            this.myEnemies = myEnemies;
             this.damageFunc = damageFunc;
+
+            
 
             direction = (position - dest).ToVector2();
             if (direction != Vector2.Zero)
@@ -54,7 +55,7 @@ namespace Tower_Defense
 
         public override void Damage()
         {
-            foreach (Enemy e in enemylist)
+            foreach (Enemy e in GameWorld.myEnemies)
             {
                 if ((int)Math.Sqrt(Math.Pow(this.Position.X - e.Position.X, 2) + Math.Pow(this.Position.Y - e.Position.Y, 2)) <= areaofeffect)
                 {

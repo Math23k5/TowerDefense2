@@ -11,7 +11,7 @@ namespace Tower_Defense
     public abstract class Projectile
     {
 
-        // 1. Projektile klassen er abstract, metoderne funktion bliver derfor defineret af subklasserne: Bomb & bullet
+        // 1. Projektile klassen er abstract, metodernes funktionalitet bliver derfor defineret af subklasserne: Bomb & bullet
         // 2. Ting som er generelle for begge typer af projektil, skal forelægge indenfor denne klasse
         // 3. Dette kan være ting som speed, target finding mm. 
       
@@ -64,7 +64,7 @@ namespace Tower_Defense
 
         public void CheckCollision(Enemy other)
         {
-            if (CollisionBox.Intersects(other.CollisionBox))
+            if (CollisionBox(other.CollisionBox))
             {
                 OnCollision(other);
             }
