@@ -22,9 +22,9 @@ namespace Tower_Defense
         public bool isShooting = false;
 
 
-        public Tower()
+        public Tower(Vector2 position)
         {
-
+            this.position = position;
         }
 
         public abstract void Shoot(GameTime gameTime);
