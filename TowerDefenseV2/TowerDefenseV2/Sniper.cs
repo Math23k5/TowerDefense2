@@ -8,8 +8,10 @@ namespace Tower_Defense
     {
         protected Texture2D sprite;
 
-        public Sniper()
+
+        public Sniper(Vector2 position) : base(position)
         {
+
         }
 
         public override void Shoot(GameTime gameTime)

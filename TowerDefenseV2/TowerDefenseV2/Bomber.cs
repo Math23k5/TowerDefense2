@@ -8,6 +8,8 @@ namespace Tower_Defense
     {
         protected Texture2D sprite;
 
+
+
         public Bomber(Vector2 position) : base(position)
         {
 

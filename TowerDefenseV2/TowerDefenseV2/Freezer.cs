@@ -11,8 +11,9 @@ namespace Tower_Defense
         protected float frzRange;
         protected int frzCost;
         protected float frzRateOfFire;
+
         
-        public Freezer()
+        public Freezer(Vector2 position) : base(position)
         {
         }
 
