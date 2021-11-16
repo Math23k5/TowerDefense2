@@ -22,7 +22,7 @@ namespace Tower_Defense
                 distance = (float)Math.Sqrt((Math.Pow(position.X - myEnemy.Position.X, 2) + Math.Pow(position.Y - myEnemy.Position.Y, 2)));
                 if (distance <= range)
                 {
-                    myEnemy.Health -= damage;
+                    GameWorld.myProjectiles.Add(new Bomb(new Vector2(position.X + sprite.Width / 2, position.Y + sprite.Height / 2), damage));
                 }
 
             }
