@@ -11,7 +11,7 @@ namespace Tower_Defense
         private SpriteBatch _spriteBatch;
 
         private List<Tower> myTowers = new List<Tower>();
-        public List<Enemy> myEnemies = new List<Enemy>();
+        public static List<Enemy> myEnemies = new List<Enemy>();
 
 
         public static int[,] enemyMovePattern = new int[,] { { 2, 0 }, { 2, 3 }, { 4, 3 } };
