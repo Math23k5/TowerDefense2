@@ -12,6 +12,12 @@ namespace Tower_Defense
     {
 
 
+        // 1. Bullet skal kunne spawne på towers position
+        // 2. Bullet skal kunne bevæge sig mod fjender, fra towers positition
+        // 3. Bullet skal leverer damage (præcis damage ligger på tower) på impact. Bullet har sin egen damage parameter, som indhentes fra tower
+        // 4. Bullet skal kunne fjernes fra spillet efter collision, for at sparer ressourcer
+        // 5. Eventuelt genruge bullet, så man sparer ressourcer.
+
         public Texture2D texture;
         public Rectangle rec;
         public Vector2 movement;
