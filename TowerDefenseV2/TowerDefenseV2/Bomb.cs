@@ -9,17 +9,18 @@ namespace Tower_Defense
 {
     class Bomb : Projectile
     {
-        Point dest;
+        Vector2 destination;
         int damage;
         int areaofeffect;
         List<Enemy> enemylist;
         Vector2 direction;
-        Action<int, Point> damageFunc;
+        Action<int, Vector2> damageFunc;
         public Vector2 velocity;
+        private Vector2 Position;
 
-        public Bomb(Point position, Texture2D tex, Point dest, List<Enemy> enemylist, int damage, int areaofeffect, Action<int, Point> damageFunc)
+        public Bomb(Vector2 position, Texture2D tex, Vector2 dest, List<Enemy> enemylist, int damage, int areaofeffect, Action<int, Point> damageFunc)
         {
-            this.dest = dest;
+            this.destination = dest;
             this.Tex = tex;
             this.damage = damage;
             this.areaofeffect = areaofeffect;
@@ -52,15 +53,15 @@ namespace Tower_Defense
                 if ((int)Math.Sqrt(Math.Pow(this.Position.X - e.Position.X, 2) + Math.Pow(this.Position.Y - e.Position.Y, 2)) <= areaofeffect)
                 {
                     damageFunc(damage, e.Position);
-                    e.damage(damage);
+                    e.TakeDamage(damage);
                 }
             }
         }
-        public override void OnHit(Enemy other)
+        public override void OnCollision(Enemy other)
         {
             if (other is Enemy)
             {
-
+                Damage();
             }
         }
 
@@ -81,6 +82,7 @@ namespace Tower_Defense
             //Lav Animate metode til at animere bombe
         }
 
+        public override 
         
     }
 }

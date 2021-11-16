@@ -17,6 +17,8 @@ namespace Tower_Defense
         protected Enemy target;
         protected Vector2 position;
         protected bool isActive;
+        protected Projectile Bullet;
+        protected List<Projectile> Bullets;
 
         public Projectile(Enemy target, Vector2 position) 
         {
@@ -36,13 +38,36 @@ namespace Tower_Defense
         /// </summary>
         public abstract void Damage();
 
-        public abstract void OnHit(Enemy other);
-
         public abstract void LoadContent(ContentManager content);
 
         public abstract void Update(GameTime gameTime);
 
         public abstract void Draw(SpriteBatch spriteBatch);
+
+        /// <summary>
+        /// Is executed everytime a collision occurs
+        /// </summary>
+        /// <param name="other">The Object we collided with</param>
+        public abstract void OnCollision(Enemy other);
+
+        public virtual Rectangle GetCollisionBox()
+        {
+
+        }
+        
+
+        
+
+        public void CheckCollision(Enemy other)
+        {
+            if (CollisionBox.Intersects(other.CollisionBox))
+            {
+                OnCollision(other);
+            }
+        }
+
+        
+
     }
 
 }
