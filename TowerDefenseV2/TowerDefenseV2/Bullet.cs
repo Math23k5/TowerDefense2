@@ -33,6 +33,7 @@ namespace Tower_Defense
             
         }
 
+        
         public override void LoadContent(ContentManager content)
         {
             content.Load<Texture2D>("Reddot");
@@ -53,7 +54,7 @@ namespace Tower_Defense
         {
             spriteBatch.Begin();
 
-
+            //Hvis kuglen er aktiv, så skal den tegnes
             if (isActive == true)
             {
                 spriteBatch.Draw(texture, rec, Color.White);
@@ -67,6 +68,7 @@ namespace Tower_Defense
 
         public override void Move(GameTime gameTime)
         {
+            
             velocity = position - target.Position;
             velocity.Normalize();
 
