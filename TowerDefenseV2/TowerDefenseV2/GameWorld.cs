@@ -12,23 +12,35 @@ namespace Tower_Defense
 
         private List<Tower> myTowers = new List<Tower>();
         public List<Enemy> myEnemies = new List<Enemy>();
-        
 
-        private int[,] enemyMovePattern = new int[,] { { 2, 0 }, { 2, 3 }, { 4, 3 } };
+
+        public static int[,] enemyMovePattern = new int[,] { { 2, 0 }, { 2, 3 }, { 4, 3 } };
         private int[,] enemyWaves = new int[,] { { 20, 0, 0 }, { 10, 5, 2 } };
         private int currentWave = 0;
         private int enemiesOfTypeSpawned = 0;
         private int currentTypeSpawn = 0;
 
-        public static int gold = 0;
+        public static int gold = 40;
+        public static int playerHealth = 20;
 
         private float timeToWave = 30.0f;
         private float timeBetweenEnemies = 1.0f;
-        
+
         private bool[,] placeAble;
+        private bool[,] notOccupied;
         private Texture2D map;
+        private Texture2D square;
+        private Texture2D dirt;
+        private Texture2D curPos;
+
+        private SpriteFont timerFont;
+
         private int mapWidth;
         private int mapHeight;
+
+        private int[] selPos = new int[2];
+        private bool keyDownMove;
+        private bool keyDownTower;
 
         public GameWorld()
         {
@@ -40,6 +52,10 @@ namespace Tower_Defense
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            _graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
+            _graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
+            _graphics.IsFullScreen = true;
+            _graphics.ApplyChanges();
 
             base.Initialize();
         }
@@ -49,24 +65,32 @@ namespace Tower_Defense
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             //Bitmap img = new Bitmap("map1.png");
 
-            //map = Content.Load<Texture2D>("map1");
-            readLevel("map1", GraphicsDevice);
-            //placeAble = new bool[map.Height, map.Width];
-            //mapHeight = map.Height;
-            //mapWidth = map.Width;
+            square = Content.Load<Texture2D>("square");
+            dirt = Content.Load<Texture2D>("dirt");
+            curPos = Content.Load<Texture2D>("curPos");
 
-            //for (int i = 0; i < map.Width; i++)
-            //{
-            //    for (int j = 0; j < map.Height; j++)
-            //    {
-            //        Color pixel = map.GetData(i,j);
+            map = Content.Load<Texture2D>("map1");
+            mapWidth = map.Width;
+            mapHeight = map.Height;
 
-            //        if (pixel == (0,0,0))
-            //        {
-            //            placeAble[j,i] = true;
-            //        }
-            //    }
-            //} 
+            Color[] colors = new Color[mapWidth * mapHeight];
+            map.GetData(colors);
+
+            Color brickRGB = new Color(0, 0, 0);
+            placeAble = new bool[mapWidth, mapHeight];
+
+            for (int y = 0; y < mapHeight; y++)
+            {
+                for (int x = 0; x < mapWidth; x++)
+                {
+                    if (colors[y * mapWidth + x] == brickRGB)
+                    {
+                        placeAble[x, y] = true;
+                    }
+                }
+            }
+            notOccupied = placeAble;
+            timerFont = Content.Load<SpriteFont>("WaveTimer");
 
             // TODO: use this.Content to load your game content here
         }
@@ -95,6 +119,7 @@ namespace Tower_Defense
             {
                 timeToWave -= (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
+            HandleInput();
 
             base.Update(gameTime);
         }
@@ -116,56 +141,33 @@ namespace Tower_Defense
                 myEnemy.Draw(_spriteBatch);
             }
 
-            for (int i = 0; i < mapHeight; i++)
+            for (int y = 0; y < mapHeight; y++)
             {
-                for (int j = 0; j < mapWidth; j++)
+                for (int x = 0; x < mapWidth; x++)
                 {
-
+                    if (placeAble[x, y] == true)
+                    {
+                        _spriteBatch.Draw(square, new Vector2(x * 50 + (_graphics.GraphicsDevice.Viewport.Width - (mapWidth * 50)) / 2, y * 50 + (_graphics.GraphicsDevice.Viewport.Height - (mapHeight * 50)) / 2), Color.White);
+                    }
+                    else
+                    {
+                        _spriteBatch.Draw(dirt, new Vector2(x * 50 + (_graphics.GraphicsDevice.Viewport.Width - (mapWidth * 50)) / 2, y * 50 + (_graphics.GraphicsDevice.Viewport.Height - (mapHeight * 50)) / 2), Color.White);
+                    }
                 }
-            } 
+            }
+            _spriteBatch.Draw(curPos, new Vector2(selPos[0] * 50 + (_graphics.GraphicsDevice.Viewport.Width - (mapWidth * 50)) / 2, selPos[1] * 50 + (_graphics.GraphicsDevice.Viewport.Height - (mapHeight * 50)) / 2), Color.White);
+
+            _spriteBatch.DrawString(timerFont, "Time to Wave " + (int)timeToWave, new Vector2(20, 20), Color.White);
+            _spriteBatch.DrawString(timerFont, "Gold: " + gold, new Vector2(20, 50), Color.White);
+            _spriteBatch.DrawString(timerFont, "Health Left: " + playerHealth, new Vector2(20, 80), Color.White);
+
 
             _spriteBatch.End();
 
             base.Draw(gameTime);
         }
 
-
-        public void readLevel(string path, GraphicsDevice graphics)
-        {
-            //GET AN ARRAY OF COLORS
-            Texture2D level = Content.Load<Texture2D>(path);
-            Color[] colors = new Color[level.Width * level.Height];
-            level.GetData(colors);
-
-            //READ EACH PIXEL AND DRAW LEVEL
-            Color brickRGB = new Color(0, 0, 0);
-
-            int placeX = 0;
-            int placeY = 0;
-
-            foreach (Color pixel in colors)
-            {
-                SpriteBatch spriteBatch = new SpriteBatch(graphics);
-                spriteBatch.Begin();
-
-                if (pixel == brickRGB)
-                {
-                    Texture2D brick = Content.Load<Texture2D>("square");
-                    spriteBatch.Draw(brick, new Rectangle(placeX, placeY, 40, 40), Color.White);
-                }
-
-
-                if (placeX == 22)
-                {
-                    placeX = 0;
-                    placeY++;
-                }
-                else
-                    spriteBatch.End();
-            }
-        }
-
-        public void SpawnEnemyWave(GameTime gameTime)
+        private void SpawnEnemyWave(GameTime gameTime)
         {
             if (timeBetweenEnemies <= 0)
             {
@@ -202,6 +204,78 @@ namespace Tower_Defense
             else
             {
                 timeBetweenEnemies -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+        }
+
+        private void HandleInput()
+        {
+            KeyboardState keyState = Keyboard.GetState();
+
+            if (keyState.IsKeyDown(Keys.W) && selPos[1] > 0 && keyDownMove != true)
+            {
+                selPos[1]--;
+                keyDownMove = true;
+            }
+            else if (keyState.IsKeyDown(Keys.S) && selPos[1] < mapHeight - 1 && keyDownMove != true)
+            {
+                selPos[1]++;
+                keyDownMove = true;
+            }
+            else if (keyState.IsKeyDown(Keys.A) && selPos[0] > 0 && keyDownMove != true)
+            {
+                selPos[0]--;
+                keyDownMove = true;
+            }
+            else if (keyState.IsKeyDown(Keys.D) && selPos[0] < mapWidth - 1 && keyDownMove != true)
+            {
+                selPos[0]++;
+                keyDownMove = true;
+            }
+            else if (keyState.IsKeyUp(Keys.W) && keyState.IsKeyUp(Keys.S) && keyState.IsKeyUp(Keys.A) && keyState.IsKeyUp(Keys.D) && keyState.IsKeyUp(Keys.Space) && keyDownMove == true)
+            {
+                keyDownMove = false;
+            }
+
+
+            if (keyState.IsKeyDown(Keys.D1) && keyDownTower != true)
+            {
+                if (notOccupied[selPos[0], selPos[1]] == true)
+                {
+                    myTowers.Add(new Standard(new Vector2(selPos[0] * 50 + (_graphics.GraphicsDevice.Viewport.Width - (mapWidth * 50)) / 2, selPos[1] * 50 + (_graphics.GraphicsDevice.Viewport.Height - (mapHeight * 50)) / 2)));
+                    notOccupied[selPos[0], selPos[1]] = false;
+                }
+                keyDownTower = true;
+            }
+            else if (keyState.IsKeyDown(Keys.D2) && keyDownTower != true)
+            {
+                if (notOccupied[selPos[0], selPos[1]] == true)
+                {
+                    myTowers.Add(new Sniper(new Vector2(selPos[0] * 50 + (_graphics.GraphicsDevice.Viewport.Width - (mapWidth * 50)) / 2, selPos[1] * 50 + (_graphics.GraphicsDevice.Viewport.Height - (mapHeight * 50)) / 2)));
+                    notOccupied[selPos[0], selPos[1]] = false;
+                }
+                keyDownTower = true;
+            }
+            else if (keyState.IsKeyDown(Keys.D3) && keyDownTower != true)
+            {
+                if (notOccupied[selPos[0], selPos[1]] == true)
+                {
+                    myTowers.Add(new Bomber(new Vector2(selPos[0] * 50 + (_graphics.GraphicsDevice.Viewport.Width - (mapWidth * 50)) / 2, selPos[1] * 50 + (_graphics.GraphicsDevice.Viewport.Height - (mapHeight * 50)) / 2)));
+                    notOccupied[selPos[0], selPos[1]] = false;
+                }
+                keyDownTower = true;
+            }
+            else if (keyState.IsKeyDown(Keys.D4) && keyDownTower != true)
+            {
+                if (notOccupied[selPos[0], selPos[1]] == true)
+                {
+                    myTowers.Add(new Freezer(new Vector2(selPos[0] * 50 + (_graphics.GraphicsDevice.Viewport.Width - (mapWidth * 50)) / 2, selPos[1] * 50 + (_graphics.GraphicsDevice.Viewport.Height - (mapHeight * 50)) / 2)));
+                    notOccupied[selPos[0], selPos[1]] = false;
+                }
+                keyDownTower = true;
+            }
+            else if (keyState.IsKeyUp(Keys.D1) && keyState.IsKeyUp(Keys.D2) && keyState.IsKeyUp(Keys.D3) && keyState.IsKeyUp(Keys.D4) && keyDownTower == true)
+            {
+                keyDownTower = false;
             }
         }
     }

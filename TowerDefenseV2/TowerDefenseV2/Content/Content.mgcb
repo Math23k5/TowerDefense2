@@ -61,6 +61,30 @@
 /processorParam:TextureFormat=Color
 /build:Bullet.png
 
+#begin curPos.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:curPos.png
+
+#begin dirt.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:dirt.png
+
 #begin enemyFast.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -121,6 +145,18 @@
 /processorParam:TextureFormat=Color
 /build:map1.png
 
+#begin map1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:map1.png
+
 #begin SniperTower.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -133,6 +169,18 @@
 /processorParam:TextureFormat=Color
 /build:SniperTower.png
 
+#begin square.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:square.png
+
 #begin StandardTower.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -144,4 +192,11 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:StandardTower.png
+
+#begin WaveTimer.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:WaveTimer.spritefont
 
