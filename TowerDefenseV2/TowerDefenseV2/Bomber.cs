@@ -6,8 +6,11 @@ namespace Tower_Defense
 {
     public class Bomber : Tower
     {
-        public Bomber()
+        protected Texture2D sprite;
+
+        public Bomber(Vector2 position) : base(position)
         {
+
         }
 
         public override void Shoot(GameTime gameTime)
@@ -15,16 +18,9 @@ namespace Tower_Defense
 
         }
 
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-
-        }
-
-
         public override void LoadContent(ContentManager content)
         {
-
+            towSprite = content.Load<Texture2D>("BomberSprite");
         }
 
 
