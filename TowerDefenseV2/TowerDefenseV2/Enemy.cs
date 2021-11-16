@@ -36,7 +36,7 @@ namespace Tower_Defense
            // gridwidth = screensize.width / 30(grids)
            // gridheight = screensize.height / 22(grids)
 
-        //private int[,] enemyMovePattern = new int[,] { { 4, 0 }, { 4, 5 }, { 11, 5 }, { 11, 3 }, {20, 3 }, {};
+        //private int[,] enemyMovePattern = new int[,] { { 4, -1 }, { 4, 4 }, { 11, 4 }, { 11, 2 }, {20, 2 }, {20 , 5 }, {26 , 5}, {;
     }
         // Metode til at instantiere content
         public abstract void LoadContent(ContentManager content);
@@ -45,11 +45,11 @@ namespace Tower_Defense
         {
             // Lav emp static?
             // Positioner på banen til enemies, er position grid eller reel?
-            for (int path = 0; path < enemyMovePattern.GetLength(0); path++)
+            for (int path = 0; path < GameWorld.enemyMovePattern.GetLength(0); path++)
             {
-                if ((position.X == enemyMovePattern[path, 0] * gridwidth) && (position.Y == enemyMovePattern[path, 1] * gridheight))
+                if ((position.X == GameWorld.enemyMovePattern[path, 0] * 50) && (position.Y == GameWorld.enemyMovePattern[path, 1] * 50))
                 {
-                    velocity += new Vector2(enemyMovePattern[path + 1, 0] - position.X, enemyMovePattern[path + 1, 1] - position.Y);
+                    velocity += new Vector2(GameWorld.enemyMovePattern[path + 1, 0] - position.X, GameWorld.enemyMovePattern[path + 1, 1] - position.Y);
                 }
             }
 
@@ -70,23 +70,21 @@ namespace Tower_Defense
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
             spriteBatch.Draw(sprite, Position, Color.White);
-            spriteBatch.End();
         }
         public void Death()
         {
             GameWorld.gold += Value;
         }
 
-        public void TakeDamage(int damage)
-        {
-            Health -= damage;
-            if (Health <= 0)
-            {
-                Death();
-            }
-        }
+        //public void TakeDamage(int damage)
+        //{
+        //    Health -= damage;
+        //    if (Health <= 0)
+        //    {
+        //        Death();
+        //    }
+        //}
 
         public void CheckCollision(/*Freezer, Projectile, Bomb*/ other)
         {
