@@ -9,6 +9,12 @@ namespace Tower_Defense
 {
     class Bomb : Projectile
     {
+
+        // 1. Bomben skal kunne spawne fra Bombtower positionen (nok origin)
+        // 2. Bomben skal kunne target fjender fra start position
+        // 3. Når bomben kolliderer med fjender, så skal bomben ekploderer og lave Aoe damage (Damage forelægger på tower?) (sprite animation)
+        // 4. Bomben skal kunne fjernes fra spillet efter animation, for at sparer ressourcer
+        // 5. Bomben skal genbruges?
         Vector2 destination;
         int damage;
         int areaofeffect;

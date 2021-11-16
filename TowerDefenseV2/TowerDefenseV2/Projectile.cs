@@ -11,6 +11,10 @@ namespace Tower_Defense
     public abstract class Projectile
     {
 
+        // 1. Projektile klassen er abstract, metoderne funktion bliver derfor defineret af subklasserne: Bomb & bullet
+        // 2. Ting som er generelle for begge typer af projektil, skal forelægge indenfor denne klasse
+        // 3. Dette kan være ting som speed, target finding mm. 
+      
         //Variabaler/fields
 
         public int speed = 10;
