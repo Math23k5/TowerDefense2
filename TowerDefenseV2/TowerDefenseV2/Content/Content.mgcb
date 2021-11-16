@@ -37,6 +37,18 @@
 /processorParam:TextureFormat=Color
 /build:body_tracks.png
 
+#begin BomberSprite.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:BomberSprite.png
+
 #begin BomberTower.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -97,6 +109,18 @@
 /processorParam:TextureFormat=Color
 /build:enemyStrong.png
 
+#begin FreezerSprite.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:FreezerSprite.png
+
 #begin FreezerTower.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -121,6 +145,18 @@
 /processorParam:TextureFormat=Color
 /build:map1.png
 
+#begin SniperSprite.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SniperSprite.png
+
 #begin SniperTower.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -132,6 +168,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:SniperTower.png
+
+#begin StandardSprite.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:StandardSprite.png
 
 #begin StandardTower.png
 /importer:TextureImporter

@@ -6,6 +6,9 @@ namespace Tower_Defense
 {
     public class Standard : Tower
     {
+        
+        protected Texture2D sprite;
+
         public Standard()
         {
         }
@@ -23,16 +26,9 @@ namespace Tower_Defense
             }
         }
 
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-
-        }
-
-
         public override void LoadContent(ContentManager content)
         {
-
+            towSprite = content.Load<Texture2D>("StandardSprite");
         }
 
 

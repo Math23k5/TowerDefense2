@@ -30,7 +30,12 @@ namespace Tower_Defense
         public abstract void Shoot(GameTime gameTime);
 
 
-        public abstract void Draw(SpriteBatch spriteBatch);
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            
+            spriteBatch.Draw(towSprite, position, Color.White);
+            
+        }
 
 
 
