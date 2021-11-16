@@ -12,7 +12,7 @@ namespace Tower_Defense
 
         private List<Tower> myTowers = new List<Tower>();
         public static List<Enemy> myEnemies = new List<Enemy>();
-
+        public static List<Projectile> myProjectiles = new List<Projectile>();
 
         public static int[,] enemyMovePattern = new int[,] { { 2, 0 }, { 2, 3 }, { 4, 3 } };
         private int[,] enemyWaves = new int[,] { { 20, 0, 0 }, { 10, 5, 2 } };
@@ -110,6 +110,10 @@ namespace Tower_Defense
             {
                 myEnemy.Update(gameTime);
             }
+            foreach (Projectile myProjectile in myProjectiles)
+            {
+                myProjectile.Update(gameTime);
+            }
 
             if (timeToWave <= 0)
             {
@@ -135,10 +139,13 @@ namespace Tower_Defense
             {
                 myTower.Draw(_spriteBatch);
             }
-
             foreach (Enemy myEnemy in myEnemies)
             {
                 myEnemy.Draw(_spriteBatch);
+            }
+            foreach (Projectile myProjectile in myProjectiles)
+            {
+                myProjectile.Draw(_spriteBatch);
             }
 
             for (int y = 0; y < mapHeight; y++)
