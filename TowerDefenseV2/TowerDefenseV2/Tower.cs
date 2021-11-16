@@ -16,15 +16,17 @@ namespace Tower_Defense
 
         protected Texture2D towSprite;
         protected Texture2D bulSprite;
+        protected Texture2D bombSprite;
 
         protected float distance;
         protected Vector2 position;
         public bool isShooting = false;
 
 
-        public Tower(Vector2 position)
+        public Tower(Vector2 position, int damage = 0)
         {
             this.position = position;
+            this.damage = damage;
         }
 
         public abstract void Shoot(GameTime gameTime);

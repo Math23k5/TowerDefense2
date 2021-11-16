@@ -77,14 +77,14 @@ namespace Tower_Defense
             GameWorld.gold += Value;
         }
 
-        //public void TakeDamage(int damage)
-        //{
-        //    Health -= damage;
-        //    if (Health <= 0)
-        //    {
-        //        Death();
-        //    }
-        //}
+        public void TakeDamage(int damage)
+        {
+            Health -= damage;
+            if (Health <= 0)
+            {
+                Death();
+            }
+        }
 
         public void CheckCollision(/*Freezer, Projectile, Bomb*/ other)
         {

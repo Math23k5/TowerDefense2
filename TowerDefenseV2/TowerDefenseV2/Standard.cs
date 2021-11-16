@@ -21,7 +21,8 @@ namespace Tower_Defense
                 distance = (float)Math.Sqrt((Math.Pow(position.X - myEnemy.Position.X, 2) + Math.Pow(position.Y - myEnemy.Position.Y, 2)));
                 if(distance <= range)
                 {
-                    myEnemy.Health -= damage;
+                    Bullet bullet = new Bullet(position, damage);
+                    GameWorld.myProjectiles.Add(bullet);
                 }
             }
         }
