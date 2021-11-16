@@ -6,6 +6,8 @@ namespace Tower_Defense
 {
     public class Sniper : Tower
     {
+        protected Texture2D sprite;
+
         public Sniper()
         {
         }
@@ -15,14 +17,9 @@ namespace Tower_Defense
 
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-
-        }
-
         public override void LoadContent(ContentManager content)
         {
-
+            towSprite = content.Load<Texture2D>("SniperSprite");
         }
 
         public override void Update(GameTime gameTime)
