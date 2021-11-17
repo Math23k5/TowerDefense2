@@ -14,7 +14,7 @@ namespace Tower_Defense
         public static List<Enemy> myEnemies = new List<Enemy>();
         public static List<Projectile> myProjectiles = new List<Projectile>();
 
-        public static int[,] enemyMovePattern = new int[,] { { 2, 0 }, { 2, 3 }, { 4, 3 } };
+        public static int[,] enemyMovePattern = new int[,] { { 4, -1 }, { 4, 4 }, { 10, 4 }, { 10, 2 }, { 20, 2 }, { 20, 4 }, { 26, 4 }, { 26, 14 }, { 22, 14 }, { 22, 8 }, { 16, 8 }, { 16, 12 }, { 14, 12 }, { 14, 14 }, { 10, 14 }, { 10, 8 }, { 4, 8 }, { 4, 10 }, { 2, 10 }, { 4, 14 }, { 8, 14 }, { 8, 18 } };
         private int[,] enemyWaves = new int[,] { { 20, 0, 0 }, { 10, 5, 2 } };
         private int currentWave = 0;
         private int enemiesOfTypeSpawned = 0;
