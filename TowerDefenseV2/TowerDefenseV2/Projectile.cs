@@ -17,16 +17,24 @@ namespace Tower_Defense
 
         //Variabaler/fields
 
-        public int speed = 10;
+        public float speed = 100;
         protected Enemy target;
         protected Vector2 position;
         protected bool isActive;
         protected Projectile Bullet;
+
+
+        protected Texture2D sprite;
+
+        protected Rectangle rect;
+        protected Vector2 origin = Vector2.Zero;
+        protected float scale = 1.0f;
+        protected SpriteEffects effects;
+
         protected Rectangle rec { get
             {
                 return new Rectangle((int)position.X, (int) position.Y, sprite.Width, sprite.Height);
             } }
-        protected Texture2D sprite;
 
         public Projectile(Enemy target, Vector2 position, Texture2D sprite)
         {

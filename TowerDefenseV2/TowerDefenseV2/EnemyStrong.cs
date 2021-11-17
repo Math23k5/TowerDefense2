@@ -12,9 +12,8 @@ namespace Tower_Defense
     {
         // Variabler hentes fra Enemy superklassen
         private int health = 150;
-        private float speed = 5;
+        private float speed = 75;
         private int value = 15;
-        private Texture2D sprite;
 
 
         /* Enemy skal spawnes ved wave start og skal bevæge sig til givne positioner.
@@ -24,15 +23,20 @@ namespace Tower_Defense
          * Strong enemy er langsommere end normal enemies, men har mere helbred.
         */
 
-        public EnemyStrong(int[,] enemyMovePattern)
+        public EnemyStrong(int mapWidth, int mapHeight)
         {
-           
+            base.mapWidth = mapWidth;
+            base.mapHeight = mapHeight;
+            isActive = true;
         }
 
         public override void LoadContent(ContentManager content)
         {
             this.sprite = content.Load<Texture2D>("enemyStrong");
+            scale = 0.2f;
+            rect = new Rectangle(0, 0, sprite.Width, sprite.Height);
             CollisionBox = new Rectangle(0, 0, sprite.Width, sprite.Height);
+            Position = new Vector2(GameWorld.enemyMovePattern[0, 0] * 50, GameWorld.enemyMovePattern[0, 1] * 50);
             base.Health = this.health;
             base.Value = this.value;
             base.NormalSpeed = this.speed;

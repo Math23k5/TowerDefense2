@@ -22,16 +22,12 @@ namespace Tower_Defense
         public Vector2 velocity;
         private Vector2 Position;
 
-        public Bomb(Vector2 position, Texture2D sprite, Vector2 dest, int damage, int areaofeffect) : base(null, position, sprite)
+        public Bomb(Vector2 position, Vector2 dest, int damage, int areaofeffect, Texture2D sprite) : base(null, position, sprite)
         {
             
             this.damage = damage;
             this.areaofeffect = areaofeffect;
-
-
-
-
-
+            speed = 200;
             direction = (position - dest);
             if (direction != Vector2.Zero)
             {
@@ -77,7 +73,7 @@ namespace Tower_Defense
 
         public override void Update(GameTime gameTime)
         {
-            //Spawne spriten
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)

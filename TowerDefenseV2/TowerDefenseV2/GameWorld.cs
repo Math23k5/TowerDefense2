@@ -14,7 +14,7 @@ namespace Tower_Defense
         public static List<Enemy> myEnemies = new List<Enemy>();
         public static List<Projectile> myProjectiles = new List<Projectile>();
 
-        public static int[,] enemyMovePattern = new int[,] { { 4, -1 }, { 4, 4 }, { 10, 4 }, { 10, 2 }, { 20, 2 }, { 20, 4 }, { 26, 4 }, { 26, 14 }, { 22, 14 }, { 22, 8 }, { 16, 8 }, { 16, 12 }, { 14, 12 }, { 14, 14 }, { 10, 14 }, { 10, 8 }, { 4, 8 }, { 4, 10 }, { 2, 10 }, { 4, 14 }, { 8, 14 }, { 8, 18 } };
+        public static int[,] enemyMovePattern = new int[,] { { 4, -1 }, { 4, 4 }, { 10, 4 }, { 10, 2 }, { 20, 2 }, { 20, 4 }, { 26, 4 }, { 26, 14 }, { 22, 14 }, { 22, 8 }, { 16, 8 }, { 16, 12 }, { 14, 12 }, { 14, 14 }, { 10, 14 }, { 10, 8 }, { 4, 8 }, { 4, 10 }, { 2, 10 }, { 2, 14 }, { 6, 14 }, { 6, 18 } };
         private int[,] enemyWaves = new int[,] { { 20, 0, 0 }, { 10, 5, 2 } };
         private int currentWave = 0;
         private int enemiesOfTypeSpawned = 0;
@@ -23,7 +23,7 @@ namespace Tower_Defense
         public static int gold = 40;
         public static int playerHealth = 20;
 
-        private float timeToWave = 30.0f;
+        private float timeToWave = 5.0f;
         private float timeBetweenEnemies = 1.0f;
 
         private bool[,] placeAble;
@@ -52,9 +52,9 @@ namespace Tower_Defense
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            _graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
-            _graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
-            _graphics.IsFullScreen = true;
+            _graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width - 200;
+            _graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height - 100;
+            //_graphics.IsFullScreen = true;
             _graphics.ApplyChanges();
 
             base.Initialize();
@@ -89,7 +89,7 @@ namespace Tower_Defense
                     }
                 }
             }
-            notOccupied = placeAble;
+            notOccupied = (bool[,])placeAble.Clone();
             timerFont = Content.Load<SpriteFont>("WaveTimer");
 
             // TODO: use this.Content to load your game content here
@@ -108,14 +108,14 @@ namespace Tower_Defense
             }
             foreach (Enemy myEnemy in myEnemies)
             {
-                myEnemy.Update(gameTime);
+                myEnemy.Update(gameTime, _graphics);
             }
             foreach (Projectile myProjectile in myProjectiles)
             {
                 myProjectile.Update(gameTime);
             }
 
-            if (timeToWave <= 0)
+            if (timeToWave <= 0 && currentWave < enemyWaves.Length/3)
             {
                 SpawnEnemyWave(gameTime);
             }
@@ -135,18 +135,6 @@ namespace Tower_Defense
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
 
-            foreach (Tower myTower in myTowers)
-            {
-                myTower.Draw(_spriteBatch);
-            }
-            foreach (Enemy myEnemy in myEnemies)
-            {
-                myEnemy.Draw(_spriteBatch);
-            }
-            foreach (Projectile myProjectile in myProjectiles)
-            {
-                myProjectile.Draw(_spriteBatch);
-            }
 
             for (int y = 0; y < mapHeight; y++)
             {
@@ -162,6 +150,20 @@ namespace Tower_Defense
                     }
                 }
             }
+
+            foreach (Tower myTower in myTowers)
+            {
+                myTower.Draw(_spriteBatch);
+            }
+            foreach (Enemy myEnemy in myEnemies)
+            {
+                myEnemy.Draw(_spriteBatch, _graphics);
+            }
+            foreach (Projectile myProjectile in myProjectiles)
+            {
+                myProjectile.Draw(_spriteBatch);
+            }
+
             _spriteBatch.Draw(curPos, new Vector2(selPos[0] * 50 + (_graphics.GraphicsDevice.Viewport.Width - (mapWidth * 50)) / 2, selPos[1] * 50 + (_graphics.GraphicsDevice.Viewport.Height - (mapHeight * 50)) / 2), Color.White);
 
             _spriteBatch.DrawString(timerFont, "Time to Wave " + (int)timeToWave, new Vector2(20, 20), Color.White);
@@ -182,30 +184,34 @@ namespace Tower_Defense
                 {
                     enemiesOfTypeSpawned = 0;
                     currentTypeSpawn++;
-                    if (currentTypeSpawn > 3)
+                    if (currentTypeSpawn >= 3)
                     {
                         currentTypeSpawn = 0;
                         timeToWave = 30.0f;
+                        currentWave++;
                     }
-                }
-
-                if (currentTypeSpawn != 0)
+                } else
                 {
-
                     switch (currentTypeSpawn)
                     {
+                        case 0:
+                            EnemyNormal myEnemy1 = new EnemyNormal(mapWidth, mapHeight);
+                            myEnemy1.LoadContent(Content);
+                            myEnemies.Add(myEnemy1);
+                            break;
                         case 1:
-                            myEnemies.Add(new EnemyNormal(enemyMovePattern));
+                            EnemyFast myEnemy2 = new EnemyFast(mapWidth, mapHeight);
+                            myEnemy2.LoadContent(Content);
+                            myEnemies.Add(myEnemy2);
                             break;
                         case 2:
-                            myEnemies.Add(new EnemyFast(enemyMovePattern));
-                            break;
-                        case 3:
-                            myEnemies.Add(new EnemyStrong(enemyMovePattern));
+                            EnemyStrong myEnemy3 = new EnemyStrong(mapWidth, mapHeight);
+                            myEnemy3.LoadContent(Content);
+                            myEnemies.Add(myEnemy3);
                             break;
                     }
                     enemiesOfTypeSpawned++;
-                    timeBetweenEnemies = 1.0f;
+                    timeBetweenEnemies = 0.5f;
                 }
             }
             else
@@ -246,36 +252,49 @@ namespace Tower_Defense
 
             if (keyState.IsKeyDown(Keys.D1) && keyDownTower != true)
             {
-                if (notOccupied[selPos[0], selPos[1]] == true)
+                if (notOccupied[selPos[0], selPos[1]] == true && gold >= 10)
                 {
-                    myTowers.Add(new Standard(new Vector2(selPos[0] * 50 + (_graphics.GraphicsDevice.Viewport.Width - (mapWidth * 50)) / 2, selPos[1] * 50 + (_graphics.GraphicsDevice.Viewport.Height - (mapHeight * 50)) / 2)));
+                    Standard newTower = new Standard(new Vector2(selPos[0] * 50 + (_graphics.GraphicsDevice.Viewport.Width - (mapWidth * 50)) / 2, selPos[1] * 50 + (_graphics.GraphicsDevice.Viewport.Height - (mapHeight * 50)) / 2));
+                    newTower.LoadContent(Content);
+                    myTowers.Add(newTower);
+                    gold -= 10;
                     notOccupied[selPos[0], selPos[1]] = false;
                 }
                 keyDownTower = true;
             }
             else if (keyState.IsKeyDown(Keys.D2) && keyDownTower != true)
             {
-                if (notOccupied[selPos[0], selPos[1]] == true)
+                if (notOccupied[selPos[0], selPos[1]] == true && gold >= 30)
                 {
-                    myTowers.Add(new Sniper(new Vector2(selPos[0] * 50 + (_graphics.GraphicsDevice.Viewport.Width - (mapWidth * 50)) / 2, selPos[1] * 50 + (_graphics.GraphicsDevice.Viewport.Height - (mapHeight * 50)) / 2)));
+                    Sniper newTower = new Sniper(new Vector2(selPos[0] * 50 + (_graphics.GraphicsDevice.Viewport.Width - (mapWidth * 50)) / 2, selPos[1] * 50 + (_graphics.GraphicsDevice.Viewport.Height - (mapHeight * 50)) / 2));
+                    newTower.LoadContent(Content);
+                    myTowers.Add(newTower);
+                    gold -= 30;
                     notOccupied[selPos[0], selPos[1]] = false;
                 }
                 keyDownTower = true;
             }
             else if (keyState.IsKeyDown(Keys.D3) && keyDownTower != true)
             {
-                if (notOccupied[selPos[0], selPos[1]] == true)
+                if (notOccupied[selPos[0], selPos[1]] == true && gold >= 50)
                 {
-                    myTowers.Add(new Bomber(new Vector2(selPos[0] * 50 + (_graphics.GraphicsDevice.Viewport.Width - (mapWidth * 50)) / 2, selPos[1] * 50 + (_graphics.GraphicsDevice.Viewport.Height - (mapHeight * 50)) / 2)));
+                    Bomber newTower = new Bomber(new Vector2(selPos[0] * 50 + (_graphics.GraphicsDevice.Viewport.Width - (mapWidth * 50)) / 2, selPos[1] * 50 + (_graphics.GraphicsDevice.Viewport.Height - (mapHeight * 50)) / 2));
+                    newTower.LoadContent(Content);
+                    myTowers.Add(newTower);
+                    gold -= 50;
+                    
                     notOccupied[selPos[0], selPos[1]] = false;
                 }
                 keyDownTower = true;
             }
             else if (keyState.IsKeyDown(Keys.D4) && keyDownTower != true)
             {
-                if (notOccupied[selPos[0], selPos[1]] == true)
+                if (notOccupied[selPos[0], selPos[1]] == true && gold >= 40)
                 {
-                    myTowers.Add(new Freezer(new Vector2(selPos[0] * 50 + (_graphics.GraphicsDevice.Viewport.Width - (mapWidth * 50)) / 2, selPos[1] * 50 + (_graphics.GraphicsDevice.Viewport.Height - (mapHeight * 50)) / 2)));
+                    Freezer newTower = new Freezer(new Vector2(selPos[0] * 50 + (_graphics.GraphicsDevice.Viewport.Width - (mapWidth * 50)) / 2, selPos[1] * 50 + (_graphics.GraphicsDevice.Viewport.Height - (mapHeight * 50)) / 2));
+                    newTower.LoadContent(Content);
+                    myTowers.Add(newTower);
+                    gold -= 40;
                     notOccupied[selPos[0], selPos[1]] = false;
                 }
                 keyDownTower = true;

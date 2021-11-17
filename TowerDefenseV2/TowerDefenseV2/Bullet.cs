@@ -33,42 +33,31 @@ namespace Tower_Defense
             
             this.position = position;
             this.damage = damage;
-
-            
-            
+            isActive = true;
+            speed = 300;
+            scale = 0.3f;
+            rect = new Rectangle(0, 0, sprite.Width, sprite.Height);
         }
 
         
         public override void LoadContent(ContentManager content)
         {
-            content.Load<Texture2D>("Reddot");
-
-            
+            //sprite = content.Load<Texture2D>("Reddot");
         }
 
         public override void Update(GameTime gameTime)
         {
-
-           
-
-
+            Move(gameTime);
         }
 
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
-
             //Hvis kuglen er aktiv, så skal den tegnes
             if (isActive == true)
             {
-                spriteBatch.Draw(texture, rec, Color.White);
+                spriteBatch.Draw(sprite, position, rect, Color.White, 0.0f, origin, scale, effects, 1.0f);
             }
-
-            spriteBatch.End();
-
-
-
         }
 
         public override void Move(GameTime gameTime)

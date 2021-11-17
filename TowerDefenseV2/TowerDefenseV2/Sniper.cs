@@ -6,12 +6,12 @@ namespace Tower_Defense
 {
     public class Sniper : Tower
     {
-        protected Texture2D sprite;
+        private Texture2D bullet;
 
 
         public Sniper(Vector2 position) : base(position)
         {
-
+            damage = 50;
         }
 
         public override void Shoot(GameTime gameTime)
@@ -21,7 +21,7 @@ namespace Tower_Defense
                 distance = (float)Math.Sqrt((Math.Pow(position.X - myEnemy.Position.X, 2) + Math.Pow(position.Y - myEnemy.Position.Y, 2)));
                 if (distance <= range)
                 {
-                    GameWorld.myProjectiles.Add(new Bullet(new Vector2(position.X + sprite.Width / 2, position.Y + sprite.Height / 2), damage));
+                    GameWorld.myProjectiles.Add(new Bullet(new Vector2(position.X + sprite.Width / 2, position.Y + sprite.Height / 2), damage, myEnemy, bullet));
                 }
 
             }
@@ -29,7 +29,10 @@ namespace Tower_Defense
 
         public override void LoadContent(ContentManager content)
         {
-            towSprite = content.Load<Texture2D>("SniperSprite");
+            sprite = content.Load<Texture2D>("SniperSprite");
+            scale = 0.2f;
+            rect = new Rectangle(0, 0, sprite.Width, sprite.Height - 30);
+            bullet = content.Load<Texture2D>("Bullet");
         }
 
         public override void Update(GameTime gameTime)

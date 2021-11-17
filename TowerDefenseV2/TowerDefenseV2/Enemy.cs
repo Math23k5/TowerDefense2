@@ -22,11 +22,24 @@ namespace Tower_Defense
         private Vector2 velocity;
         private Rectangle collisionBox;
 
+        protected Rectangle rect;
+        private Vector2 origin = Vector2.Zero;
+        protected float scale = 1.0f;
+        private SpriteEffects effect;
+
+        protected int mapWidth;
+        protected int mapHeight;
+        private int path = 0;
+        protected bool isActive;
+        private Vector2 worldPos;
+
         public int Health { get => health; set => health = value; }
         public Vector2 Position { get => position; set => position = value; }
+        public Vector2 WorldPos { get => worldPos; }
         public Rectangle CollisionBox { get => collisionBox; set => collisionBox = value; }
         protected int Value { get => value; set => this.value = value; }
         public float NormalSpeed { get => normalSpeed; set => normalSpeed = value; }
+
 
         public Enemy()
         {
@@ -41,36 +54,57 @@ namespace Tower_Defense
         // Metode til at instantiere content
         public abstract void LoadContent(ContentManager content);
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, GraphicsDeviceManager graphics)
         {
-            // Lav emp static?
-            // Positioner på banen til enemies, er position grid eller reel?
-            for (int path = 0; path < GameWorld.enemyMovePattern.GetLength(0); path++)
+            if (isActive == true)
             {
-                if ((position.X == GameWorld.enemyMovePattern[path, 0] * 50) && (position.Y == GameWorld.enemyMovePattern[path, 1] * 50))
+                // Lav emp static?
+                // Positioner på banen til enemies, er position grid eller reel?
+                //for (int path = 0; path < GameWorld.enemyMovePattern.GetLength(0); path++)
+                //{
+                if (GameWorld.enemyMovePattern[path, 0] * 50 - position.X < 1.0f && GameWorld.enemyMovePattern[path, 0] * 50 - position.X > -1.0f && GameWorld.enemyMovePattern[path, 1] * 50 - position.Y < 1.0f && GameWorld.enemyMovePattern[path, 1] * 50 - position.Y > -1.0f)
                 {
-                    velocity += new Vector2(GameWorld.enemyMovePattern[path + 1, 0] - position.X, GameWorld.enemyMovePattern[path + 1, 1] - position.Y);
+                    path++;
+                    if (path >= GameWorld.enemyMovePattern.Length / 2)
+                    {
+                        GameWorld.playerHealth--;
+                        isActive = false;
+                    }
+                    else
+                    {
+                        velocity = new Vector2(GameWorld.enemyMovePattern[path, 0] * 50 - position.X, GameWorld.enemyMovePattern[path, 1] * 50 - position.Y);
+                        velocity.Normalize();
+                    }
+                }
+                //}
+                if (isActive == true)
+                {
+                    //velocity = new Vector2(GameWorld.enemyMovePattern[path, 0] * 50 - position.X, GameWorld.enemyMovePattern[path, 1] * 50 - position.Y);
+
+                    if (isSlowed == true)
+                    {
+                        speed = NormalSpeed * 0.8f;
+                    }
+                    else
+                    {
+                        speed = NormalSpeed;
+                    }
+
+                    float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                    position += (speed * velocity) * deltaTime;
+                    CollisionBox = new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
                 }
             }
-
-            if (isSlowed == true)
-            {
-                speed = NormalSpeed * 0.8f;
-            }
-            else
-            {
-                speed = NormalSpeed;
-            }
-
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            position += ((speed * velocity) * deltaTime);
-            CollisionBox = new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GraphicsDeviceManager graphics)
         {
-            spriteBatch.Draw(sprite, Position, Color.White);
+            if (isActive == true)
+            {
+                worldPos = new Vector2(position.X + (graphics.GraphicsDevice.Viewport.Width - (mapWidth * 50)) / 2 - (sprite.Width * scale) / 2 + 50, position.Y + (graphics.GraphicsDevice.Viewport.Height - (mapHeight * 50)) / 2 - (sprite.Height * scale) / 2 + 50);
+                spriteBatch.Draw(sprite, worldPos, rect, Color.White, 0.0f, origin, scale, effect, 1.0f);
+            }
         }
         public void Death()
         {
@@ -86,22 +120,22 @@ namespace Tower_Defense
             }
         }
 
-        public void CheckCollision(/*Freezer, Projectile, Bomb*/ other)
-        {
-            if (CollisionBox.Intersects(other.CollisionBox))
-            {
-                OnCollision(other);
-            }
-        }
+        //public void CheckCollision(/*Freezer, Projectile, Bomb*/ other)
+        //{
+        //    if (CollisionBox.Intersects(other.CollisionBox))
+        //    {
+        //        OnCollision(other);
+        //    }
+        //}
 
-        public virtual void OnCollision(/*Freezer, Projectile, Bomb*/ other)
-        {
-            // if(type freezer)
-            // isSlowed = true;
+        //public virtual void OnCollision(/*Freezer, Projectile, Bomb*/ other)
+        //{
+        //    // if(type freezer)
+        //    // isSlowed = true;
 
-            // if(projectile || bomb)
-            // TakeDamage();
-        }
+        //    // if(projectile || bomb)
+        //    // TakeDamage();
+        //}
     
 
     }

@@ -14,19 +14,22 @@ namespace Tower_Defense
         protected int cost;
         protected float rateOfFire;
 
-        protected Texture2D towSprite;
-        protected Texture2D bulSprite;
-        protected Texture2D bombSprite;
+        protected Texture2D sprite;
 
         protected float distance;
         protected Vector2 position;
         public bool isShooting = false;
+        protected float timeSinceShot = 0.0f;
+
+        protected Rectangle rect;
+        protected Vector2 origin = Vector2.Zero;
+        protected float scale = 1.0f;
+        private SpriteEffects effect;
 
 
-        public Tower(Vector2 position, int damage = 0)
+        public Tower(Vector2 position)
         {
             this.position = position;
-            this.damage = damage;
         }
 
         public abstract void Shoot(GameTime gameTime);
@@ -35,7 +38,7 @@ namespace Tower_Defense
         public void Draw(SpriteBatch spriteBatch)
         {
             
-            spriteBatch.Draw(towSprite, position, Color.White);
+            spriteBatch.Draw(sprite, new Vector2(position.X - (sprite.Width * scale)/2 + 25, position.Y - (sprite.Height * scale)/2 + 25), rect, Color.White, 0.0f, origin, scale, effect, 1.0f);
             
         }
 
