@@ -14,7 +14,7 @@ namespace Tower_Defense
         private int health = 75;
         private float speed = 15;
         private int value = 7;
-        private Texture2D sprite;
+        
         
 
         /* Enemy skal spawnes ved wave start og skal bevæge sig til givne positioner.

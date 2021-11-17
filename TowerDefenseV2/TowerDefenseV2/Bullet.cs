@@ -16,10 +16,10 @@ namespace Tower_Defense
         // 2. Bullet skal kunne bevæge sig mod fjender, fra towers positition
         // 3. Bullet skal leverer damage (præcis damage ligger på tower) på impact. Bullet har sin egen damage parameter, som indhentes fra tower
         // 4. Bullet skal kunne fjernes fra spillet efter collision, for at sparer ressourcer
-        // 5. Eventuelt genruge bullet, så man sparer ressourcer.
+        // 5. Eventuelt genbruge bullet, så man sparer ressourcer.
 
         public Texture2D texture;
-        public Rectangle rec;
+        
         public Vector2 movement;
         public Vector2 velocity;
         public int damage;
@@ -28,11 +28,13 @@ namespace Tower_Defense
         
 
 
-        public Bullet(Vector2 position, int damage)
+        public Bullet(Vector2 position, int damage, Enemy target, Texture2D sprite) : base(target, position, sprite)
         {
             
             this.position = position;
             this.damage = damage;
+
+            
             
         }
 
@@ -41,7 +43,7 @@ namespace Tower_Defense
         {
             content.Load<Texture2D>("Reddot");
 
-            rec = new Rectangle(0, 0, texture.Width, texture.Height);
+            
         }
 
         public override void Update(GameTime gameTime)
@@ -72,7 +74,7 @@ namespace Tower_Defense
         public override void Move(GameTime gameTime)
         {
             
-            velocity = position - target.Position;
+            velocity = target.Position - position;
             velocity.Normalize();
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -86,13 +88,11 @@ namespace Tower_Defense
             if (other is Enemy)
             {
                 other.Health -= damage;
+                GameWorld.myProjectiles.Remove(this);
             }
         }
 
-        public override void Damage()
-        {
-            
-        }
+       
 
     }
 
