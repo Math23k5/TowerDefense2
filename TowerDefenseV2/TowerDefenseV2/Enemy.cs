@@ -33,17 +33,19 @@ namespace Tower_Defense
         protected bool isActive;
         private Vector2 worldPos;
 
-        public int Health { get => health; set => health = value; }
-        public Vector2 Position { get => position; set => position = value; }
-        public Vector2 WorldPos { get => worldPos; }
-        public float Scale { get => scale; }
-        public bool IsActive { get => isActive; }
-        public Texture2D Sprite { get => sprite; }
-        public Rectangle CollisionBox { get => collisionBox; set => collisionBox = value; }
-        protected int Value { get => value; set => this.value = value; }
-        public float NormalSpeed { get => normalSpeed; set => normalSpeed = value; }
+        public int Health { get => health; set => health = value; } //Used to change the health value of enemies
+        public Vector2 Position { get => position; set => position = value; } //Used to change the position of enemies
+        public Vector2 WorldPos { get => worldPos; } //Used to check for the enemys position in the game
+        public float Scale { get => scale; } //Used to get the scale of each enemy
+        public bool IsActive { get => isActive; } //Used to get the activity status of each enemy
+        public Texture2D Sprite { get => sprite; } //Used to get the sprite of each enemy
+        public Rectangle CollisionBox { get => collisionBox; set => collisionBox = value; } //Used to set the collisionbox on each enemy
+        protected int Value { get => value; set => this.value = value; } //Used to change the value on each enemy
+        public float NormalSpeed { get => normalSpeed; set => normalSpeed = value; } //Used to set the speed of enemies back to normal
 
-
+        /// <summary>
+        /// Used to call enemy in GameWorld
+        /// </summary>
         public Enemy()
         {
            // Variabler mangler
@@ -54,9 +56,18 @@ namespace Tower_Defense
 
         //private int[,] enemyMovePattern = new int[,] { { 4, -1 }, { 4, 4 }, { 11, 4 }, { 11, 2 }, {20, 2 }, {20 , 5 }, {26 , 5}, {;
     }
-        // Metode til at instantiere content
+
+        /// <summary>
+        /// Loads initial content from sub-classes
+        /// </summary>
+        /// <param name="content">Takes ContentManager to look at content in content file</param>
         public abstract void LoadContent(ContentManager content);
 
+        /// <summary>
+        /// Updates the movement and speed of the enemies while also setting collionboxes
+        /// </summary>
+        /// <param name="gameTime">Takes a GameTime that provides the timespan since last call to update</param>
+        /// <param name="graphics">Takes GraphicsDeviceManager that allow access to get screensize</param>
         public void Update(GameTime gameTime, GraphicsDeviceManager graphics)
         {
             if (isActive == true)
@@ -101,6 +112,11 @@ namespace Tower_Defense
             }
         }
 
+        /// <summary>
+        /// Used to draw the visual picture of the enemy based on their position
+        /// </summary>
+        /// <param name="spriteBatch">Takes a SpriteBatch that contains the enemy sprites</param>
+        /// <param name="graphics">Takes GraphicsDeviceManager that allow access to get screensize</param>
         public void Draw(SpriteBatch spriteBatch, GraphicsDeviceManager graphics)
         {
             if (isActive == true)
@@ -109,12 +125,20 @@ namespace Tower_Defense
                 spriteBatch.Draw(sprite, worldPos, rect, Color.White, 0.0f, origin, scale, effect, 1.0f);
             }
         }
+
+        /// <summary>
+        /// Adds gold when an enemy die based on it's value
+        /// </summary>
         public void Death()
         {
             GameWorld.gold += Value;
             isActive = false;
         }
 
+        /// <summary>
+        /// Calls for the enemy to take damage based on projectiles damage
+        /// </summary>
+        /// <param name="damage">Takes an int damage to subtract from enemy health</param>
         public void TakeDamage(int damage)
         {
             Health -= damage;

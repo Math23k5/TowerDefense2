@@ -13,8 +13,8 @@ namespace Tower_Defense
         // Variabler hentes fra Enemy superklassen
         private int health = 75;
         private float speed = 200;
-        
-        
+
+
 
         /* Enemy skal spawnes ved wave start og skal bevæge sig til givne positioner.
          * Enemy skal tage skade når den rammes af de forskellige skud fra tårnene.
@@ -26,14 +26,24 @@ namespace Tower_Defense
          * screenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
          * Spørg på grid width og grid height for placering af enemy
         */
+
+        /// <summary>
+        /// Calls an enemy that take map width and height as param
+        /// </summary>
+        /// <param name="mapWidth">Param used to set map width</param>
+        /// <param name="mapHeight">Param used to set map height</param>
         public EnemyFast(int mapWidth, int mapHeight)
         {
             base.mapWidth = mapWidth;
             base.mapHeight = mapHeight;
             isActive = true;
             value = 5;
-    }
+        }
 
+        /// <summary>
+        /// Overrides the LoadContent on Enemy to set the correct sprite and the stats of enemyFast
+        /// </summary>
+        /// <param name="content">Takes ContentManager to look at content in content file</param>
         public override void LoadContent(ContentManager content)
         {
             // SCALE SPRITE Png i korrekt størrelse

@@ -22,6 +22,11 @@ namespace Tower_Defense
          * Strong enemy er langsommere end normal enemies, men har mere helbred.
         */
 
+        /// <summary>
+        /// Calls an enemy that take map width and height as param
+        /// </summary>
+        /// <param name="mapWidth">Param used to set map width</param>
+        /// <param name="mapHeight">Param used to set map height</param>
         public EnemyStrong(int mapWidth, int mapHeight)
         {
             base.mapWidth = mapWidth;
@@ -30,6 +35,10 @@ namespace Tower_Defense
             value = 15;
         }
 
+        /// <summary>
+        /// Overrides the LoadContent on Enemy to set the correct sprite and the stats of enemyStrong
+        /// </summary>
+        /// <param name="content">Takes ContentManager to look at content in content file</param>
         public override void LoadContent(ContentManager content)
         {
             this.sprite = content.Load<Texture2D>("enemyStrong");
