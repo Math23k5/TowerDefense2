@@ -13,7 +13,6 @@ namespace Tower_Defense
         // Variabler hentes fra Enemy superklassen
         private int health = 150;
         private float speed = 75;
-        private int value = 15;
 
 
         /* Enemy skal spawnes ved wave start og skal bevæge sig til givne positioner.
@@ -28,6 +27,7 @@ namespace Tower_Defense
             base.mapWidth = mapWidth;
             base.mapHeight = mapHeight;
             isActive = true;
+            value = 15;
         }
 
         public override void LoadContent(ContentManager content)

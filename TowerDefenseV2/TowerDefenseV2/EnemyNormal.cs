@@ -27,7 +27,7 @@ namespace Tower_Defense
             base.mapWidth = mapWidth;
             base.mapHeight = mapHeight;
             isActive = true;
-            base.value = 10;
+            base.value = 2;
         }
 
         public override void LoadContent(ContentManager content)

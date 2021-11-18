@@ -12,7 +12,7 @@ namespace Tower_Defense
         public Standard(Vector2 position) : base(position)
         {
             damage = 20;
-            rateOfFire = 1.0f;
+            rateOfFire = 0.8f;
             range = 100.0f;
         }
 
@@ -20,11 +20,14 @@ namespace Tower_Defense
         {
             foreach (Enemy myEnemy in GameWorld.myEnemies)
             {
-                distance = (float)Math.Sqrt((Math.Pow(position.X - myEnemy.WorldPos.X, 2) + Math.Pow(position.Y - myEnemy.WorldPos.Y, 2)));
-                if(distance <= range)
+                if (myEnemy.IsActive == true)
                 {
-                    GameWorld.myProjectiles.Add(new Bullet(new Vector2(position.X, position.Y), damage, myEnemy, bullet));
-                    break;
+                    distance = (float)Math.Sqrt((Math.Pow(position.X - myEnemy.WorldPos.X, 2) + Math.Pow(position.Y - myEnemy.WorldPos.Y, 2)));
+                    if (distance <= range)
+                    {
+                        GameWorld.myProjectiles.Add(new Bullet(new Vector2(position.X, position.Y), damage, myEnemy, bullet));
+                        break;
+                    }
                 }
             }
         }

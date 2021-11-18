@@ -13,7 +13,6 @@ namespace Tower_Defense
         // Variabler hentes fra Enemy superklassen
         private int health = 75;
         private float speed = 200;
-        private int value = 7;
         
         
 
@@ -32,7 +31,8 @@ namespace Tower_Defense
             base.mapWidth = mapWidth;
             base.mapHeight = mapHeight;
             isActive = true;
-        }
+            value = 5;
+    }
 
         public override void LoadContent(ContentManager content)
         {

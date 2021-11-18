@@ -12,18 +12,23 @@ namespace Tower_Defense
         public Sniper(Vector2 position) : base(position)
         {
             damage = 50;
+            rateOfFire = 1.2f;
+            range = 200.0f;
         }
 
         public override void Shoot(GameTime gameTime)
         {
             foreach (Enemy myEnemy in GameWorld.myEnemies)
             {
-                distance = (float)Math.Sqrt((Math.Pow(position.X - myEnemy.Position.X, 2) + Math.Pow(position.Y - myEnemy.Position.Y, 2)));
-                if (distance <= range)
+                if (myEnemy.IsActive == true)
                 {
-                    GameWorld.myProjectiles.Add(new Bullet(new Vector2(position.X + sprite.Width / 2, position.Y + sprite.Height / 2), damage, myEnemy, bullet));
+                    distance = (float)Math.Sqrt((Math.Pow(position.X - myEnemy.WorldPos.X, 2) + Math.Pow(position.Y - myEnemy.WorldPos.Y, 2)));
+                    if (distance <= range)
+                    {
+                        GameWorld.myProjectiles.Add(new Bullet(new Vector2(position.X, position.Y), damage, myEnemy, bullet));
+                        break;
+                    }
                 }
-
             }
         }
 
@@ -37,7 +42,15 @@ namespace Tower_Defense
 
         public override void Update(GameTime gameTime)
         {
-
+            if (timeSinceShot >= rateOfFire)
+            {
+                Shoot(gameTime);
+                timeSinceShot = 0.0f;
+            }
+            else
+            {
+                timeSinceShot += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
         }
     }
 }
