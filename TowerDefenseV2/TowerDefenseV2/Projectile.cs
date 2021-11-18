@@ -59,16 +59,16 @@ namespace Tower_Defense
         /// Is executed everytime a collision occurs
         /// </summary>
         /// <param name="other">The Object we collided with</param>
-        public abstract void OnCollision(Enemy other);
+       // public abstract void OnCollision(Enemy other);
 
 
-        public void CheckCollision(Enemy other)
+       /* public void CheckCollision(Enemy other)
         {
             if (rec.Intersects(other.CollisionBox))
             {
                 OnCollision(other);
             }
-        }
+        }*/
 
 
 

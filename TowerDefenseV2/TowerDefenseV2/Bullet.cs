@@ -27,7 +27,13 @@ namespace Tower_Defense
 
         
 
-
+        /// <summary>
+        /// Constructers til bullet
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="damage"></param>
+        /// <param name="target"></param>
+        /// <param name="sprite"></param>
         public Bullet(Vector2 position, int damage, Enemy target, Texture2D sprite) : base(target, position, sprite)
         {
             
@@ -44,7 +50,10 @@ namespace Tower_Defense
         {
             //sprite = content.Load<Texture2D>("Reddot");
         }
-
+        /// <summary>
+        /// Tjekker update på bullet
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             if (isActive == true )
@@ -57,7 +66,10 @@ namespace Tower_Defense
             }
         }
 
-
+        /// <summary>
+        /// Tegner kuglen
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             //Hvis kuglen er aktiv, så skal den tegnes
@@ -66,12 +78,16 @@ namespace Tower_Defense
                 spriteBatch.Draw(sprite, new Vector2(position.X + sprite.Width / 2, position.Y + sprite.Height / 2), rect, Color.White, 0.0f, origin, scale, effects, 1.0f);
             }
         }
-
+        /// <summary>
+        /// Styrer bevægelsen af kuglen, og den target finding
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Move(GameTime gameTime)
         {
             velocity = new Vector2(target.WorldPos.X + (target.Sprite.Width * target.Scale) / 2, target.WorldPos.Y + (target.Sprite.Height * target.Scale) / 2) - new Vector2(position.X + sprite.Width / 2, position.Y + sprite.Height / 2);
             if (velocity.X < 5.0f && velocity.X > -5.0f && velocity.Y < 5.0f && velocity.Y > -5.0f)
             {
+                //Hvis centrum af kuglen er indenfor 5 pixels af centrum af fjenden, så vil den gøre skade. 
                 target.TakeDamage(damage);
                 isActive = false;
             }
@@ -82,14 +98,14 @@ namespace Tower_Defense
             position += ((speed * velocity) * deltaTime);
         }
 
-        public override void OnCollision(Enemy other)
+        /*public override void OnCollision(Enemy other)
         {
             if (other is Enemy)
             {
                 other.Health -= damage;
                 GameWorld.myProjectiles.Remove(this);
             }
-        }
+        }*/
 
        
 
