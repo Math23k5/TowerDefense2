@@ -23,7 +23,7 @@ namespace Tower_Defense
         public static int gold = 40;
         public static int playerHealth = 20;
 
-        private float timeToWave = 5.0f;
+        private float timeToWave = 25.0f;
         private float timeBetweenEnemies = 1.0f;
 
         private bool[,] placeAble;
