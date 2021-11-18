@@ -15,6 +15,8 @@ namespace Tower_Defense
         // 3. Når bomben kolliderer med fjender, så skal bomben ekploderer og lave Aoe damage (Damage forelægger på tower?) (sprite animation)
         // 4. Bomben skal kunne fjernes fra spillet efter animation, for at sparer ressourcer
         // 5. Bomben skal genbruges?
+
+        //Denne kode blev ikke færdig!!
         
         int damage;
         int areaofeffect;
@@ -58,13 +60,13 @@ namespace Tower_Defense
                 }
             }
         }
-        public override void OnCollision(Enemy other)
+       /* public override void OnCollision(Enemy other)
         {
             if (other is Enemy)
             {
                 Damage();
             }
-        }
+        }*/
 
         public override void LoadContent(ContentManager content)
         {
