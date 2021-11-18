@@ -15,7 +15,7 @@ namespace Tower_Defense
         public static List<Projectile> myProjectiles = new List<Projectile>();
 
         public static int[,] enemyMovePattern = new int[,] { { 4, -1 }, { 4, 4 }, { 10, 4 }, { 10, 2 }, { 20, 2 }, { 20, 4 }, { 26, 4 }, { 26, 14 }, { 22, 14 }, { 22, 8 }, { 16, 8 }, { 16, 12 }, { 14, 12 }, { 14, 14 }, { 10, 14 }, { 10, 8 }, { 4, 8 }, { 4, 10 }, { 2, 10 }, { 2, 14 }, { 6, 14 }, { 6, 18 } };
-        private int[,] enemyWaves = new int[,] { { 10, 0, 0 }, { 10, 2, 0 }, { 15, 5, 1 }, { 5, 10, 2 }, { 10, 10, 5 }, { 10, 0, 10 }, { 0, 20, 0 }, { 0, 0, 20 } };
+        private int[,] enemyWaves = new int[,] { { 10, 0, 0 }, { 10, 2, 0 }, { 15, 5, 1 }, { 5, 10, 2 }, { 10, 10, 5 }, { 10, 0, 10 }, { 0, 20, 0 }, { 0, 0, 20 }, { 0, 0, 999 } };
         private int currentWave = 0;
         private int enemiesOfTypeSpawned = 0;
         private int currentTypeSpawn = 0;
@@ -61,6 +61,9 @@ namespace Tower_Defense
             base.Initialize();
         }
 
+        /// <summary>
+        ///     Loads the content
+        /// </summary>
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -96,6 +99,10 @@ namespace Tower_Defense
             // TODO: use this.Content to load your game content here
         }
 
+        /// <summary>
+        ///     updates the state of the game for all objects
+        /// </summary>
+        /// <param name="gameTime"></param>
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
