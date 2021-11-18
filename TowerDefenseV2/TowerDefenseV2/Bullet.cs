@@ -47,7 +47,14 @@ namespace Tower_Defense
 
         public override void Update(GameTime gameTime)
         {
-            Move(gameTime);
+            if (isActive == true )
+            {
+                Move(gameTime);
+            }
+            if(target.IsActive != true)
+            {
+                isActive = false;
+            }
         }
 
 
@@ -56,20 +63,23 @@ namespace Tower_Defense
             //Hvis kuglen er aktiv, så skal den tegnes
             if (isActive == true)
             {
-                spriteBatch.Draw(sprite, position, rect, Color.White, 0.0f, origin, scale, effects, 1.0f);
+                spriteBatch.Draw(sprite, new Vector2(position.X + sprite.Width / 2, position.Y + sprite.Height / 2), rect, Color.White, 0.0f, origin, scale, effects, 1.0f);
             }
         }
 
         public override void Move(GameTime gameTime)
         {
-            
-            velocity = target.Position - position;
+            velocity = new Vector2(target.WorldPos.X + (target.Sprite.Width * target.Scale) / 2, target.WorldPos.Y + (target.Sprite.Height * target.Scale) / 2) - new Vector2(position.X + sprite.Width / 2, position.Y + sprite.Height / 2);
+            if (velocity.X < 5.0f && velocity.X > -5.0f && velocity.Y < 5.0f && velocity.Y > -5.0f)
+            {
+                target.TakeDamage(damage);
+                isActive = false;
+            }
             velocity.Normalize();
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             position += ((speed * velocity) * deltaTime);
-
         }
 
         public override void OnCollision(Enemy other)

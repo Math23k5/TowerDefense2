@@ -11,9 +11,8 @@ namespace Tower_Defense
     class EnemyNormal : Enemy
     {
         // Variabler hentes fra Enemy superklassen
-        private int health = 100;
+        private int health = 10;
         private float speed = 100.0f;
-        private int value = 10;
         private Rectangle collisionBox;
 
         /* Enemy skal spawnes ved wave start og skal bevæge sig til givne positioner.
@@ -28,6 +27,7 @@ namespace Tower_Defense
             base.mapWidth = mapWidth;
             base.mapHeight = mapHeight;
             isActive = true;
+            base.value = 10;
         }
 
         public override void LoadContent(ContentManager content)

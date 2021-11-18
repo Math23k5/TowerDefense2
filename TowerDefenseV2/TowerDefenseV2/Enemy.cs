@@ -15,7 +15,7 @@ namespace Tower_Defense
         private Vector2 position;
         private float speed;
         private float normalSpeed;
-        private int value;
+        protected int value;
         protected Texture2D sprite;
         private int health;
         public bool isSlowed = false;
@@ -36,6 +36,9 @@ namespace Tower_Defense
         public int Health { get => health; set => health = value; }
         public Vector2 Position { get => position; set => position = value; }
         public Vector2 WorldPos { get => worldPos; }
+        public float Scale { get => scale; }
+        public bool IsActive { get => isActive; }
+        public Texture2D Sprite { get => sprite; }
         public Rectangle CollisionBox { get => collisionBox; set => collisionBox = value; }
         protected int Value { get => value; set => this.value = value; }
         public float NormalSpeed { get => normalSpeed; set => normalSpeed = value; }
@@ -109,6 +112,7 @@ namespace Tower_Defense
         public void Death()
         {
             GameWorld.gold += Value;
+            isActive = false;
         }
 
         public void TakeDamage(int damage)
