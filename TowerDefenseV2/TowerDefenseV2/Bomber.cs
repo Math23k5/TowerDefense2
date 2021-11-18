@@ -4,6 +4,11 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 namespace Tower_Defense
 {
+    /// <summary>
+    /// Bomber er et Tower med størst skade og desuden giver area damage til flere enemies i området
+    /// Til gengæld har den også den længste rate of fire, så den skyder langsomere end alle de andre Towers
+    /// Tårnet er ikke blevet implementeret korrekt i spillet
+    /// </summary>
     public class Bomber : Tower
     {
         private Texture2D bomb;

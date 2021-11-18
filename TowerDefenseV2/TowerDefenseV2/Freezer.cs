@@ -4,8 +4,13 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 namespace Tower_Defense
 {
+    /// <summary>
+    /// Freezer er et Tower der ikke giver nogen skade, men sænke Enemies speed
+    /// Dette tårn er ikke blevet implementeret korrekt i spillet
+    /// </summary>
     public class Freezer : Tower
     {
+
         protected int frzDamage;
         protected float frzRange;
         protected int frzCost;
@@ -16,6 +21,10 @@ namespace Tower_Defense
         {
         }
 
+        /// <summary>
+        /// Når Enemies er inden for range sænker den deres speed
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Shoot(GameTime gameTime)
         {
             foreach (Enemy myEnemy in GameWorld.myEnemies)
