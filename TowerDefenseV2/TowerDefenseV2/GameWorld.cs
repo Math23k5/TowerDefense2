@@ -41,6 +41,7 @@ namespace Tower_Defense
         private int[] selPos = new int[2];
         private bool keyDownMove;
         private bool keyDownTower;
+        private bool keyDownSpawn;
 
         public GameWorld()
         {
@@ -302,6 +303,16 @@ namespace Tower_Defense
             else if (keyState.IsKeyUp(Keys.D1) && keyState.IsKeyUp(Keys.D2) && keyState.IsKeyUp(Keys.D3) && keyState.IsKeyUp(Keys.D4) && keyDownTower == true)
             {
                 keyDownTower = false;
+            }
+
+            if (keyState.IsKeyDown(Keys.Space) && keyDownSpawn != true)
+            {
+                timeToWave = 0.0f;
+                keyDownSpawn = true;
+
+            } else if (keyState.IsKeyUp(Keys.Space) && keyDownSpawn == true)
+            {
+                keyDownSpawn = false;
             }
         }
     }
